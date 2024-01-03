@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h2 {
+  text-align: end;
+  margin-bottom: 0;
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.conteudo div {
+  margin-top: 5rem;
+  margin-left: 6.5rem;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+}
+
+.transparent-button {
+  height: 40px;
+  width: 200px;
+  background-color: crimson;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.transparent-button:hover {
+  background-color: transparent;
+  color: black;
+  border: 0.5px black solid;
+}

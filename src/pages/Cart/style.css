@@ -1,0 +1,17 @@
+.transparent-button {
+  height: 40px;
+  width: 200px;
+  background-color: crimson;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.transparent-button:hover {
+  background-color: transparent;
+  color: black;
+  border: 0.5px black solid;
+}
