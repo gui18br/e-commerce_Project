@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
+import { FaShoppingCart } from "react-icons/fa";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
 import { ProductsArea } from "../../CSS/style";
 import "./style.css";
+import { PropagateLoader } from "react-spinners";
+import { css } from "@emotion/react";
 
 export const Store = () => {
   const [data, setData] = useState([]);
@@ -18,6 +21,22 @@ export const Store = () => {
     };
     fetchApi();
   }, []);
+
+  const override = css`
+    display: block;
+    margin: 0 auto;
+  `;
+
+  if (!data) {
+    return (
+      <PropagateLoader
+        css={override}
+        size={15}
+        color={"crimson"}
+        loading={true}
+      />
+    );
+  }
 
   const handleClick = (obj) => {
     const element = cart.find((e) => e.id === obj.id);
@@ -35,14 +54,11 @@ export const Store = () => {
     <div>
       <header>
         <h1>Store</h1>
-        <ul>
-          <li>livros</li>
-          <li>Celulares</li>
-          <li>carros</li>
-        </ul>
-        <div>
-          <Link to={"/cart"}>Carrinho</Link>
-        </div>
+        <Link to={"/cart"} className="linkSemDecoracao">
+          <div className="carrinho">
+            <FaShoppingCart color="crimson" />
+          </div>
+        </Link>
       </header>
       <ProductsArea>
         {data.map((e) => [

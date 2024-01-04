@@ -1,19 +1,31 @@
 header {
+  display: flex;
   background-color: crimson;
   color: white;
   margin-bottom: 1rem;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 header h1 {
-  margin-top: 0;
+  margin-left: 1rem;
 }
 
-header ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.carrinho {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 1rem;
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.linkSemDecoracao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
 }
 
 .transparent-button {

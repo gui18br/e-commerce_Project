@@ -8,6 +8,9 @@ import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
 import "./style.css";
+import { css } from "@emotion/react";
+import { PropagateLoader } from "react-spinners";
+import { FaShoppingCart } from "react-icons/fa";
 
 export const ItemDetail = () => {
   const [cart, setCart] = useState(getItem("carrinhoYt") || []);
@@ -30,9 +33,20 @@ export const ItemDetail = () => {
     setItem1(selectedItem);
   }, [data, id]);
 
-  // Verificar se o item está definido antes de renderizar
+  const override = css`
+    display: block;
+    margin: 0 auto;
+  `;
+
   if (!item) {
-    return <div>Item não encontrado</div>;
+    return (
+      <PropagateLoader
+        css={override}
+        size={15}
+        color={"crimson"}
+        loading={true}
+      />
+    );
   }
 
   const handleClick = (obj) => {
@@ -49,11 +63,20 @@ export const ItemDetail = () => {
 
   return (
     <div className="container">
-      <h1>{item.title}</h1>
-      <div className="conteudo" key={item.id}>
+      <header>
+        <h1>Store</h1>
+        <Link to={"/cart"} className="linkSemDecoracao">
+          <div className="carrinho">
+            <FaShoppingCart color="crimson" />
+          </div>
+        </Link>
+      </header>
+      <div className="item-venda" key={item.id}>
         <img src={item.thumbnail} alt="" />
-        <div>
-          <h2>${item.price}</h2>
+        <div className="buy">
+          <h1>{item.title}</h1>
+          <p>R${item.original_price}</p>
+          <h2>R${item.price}</h2>
           <button
             className="transparent-button"
             onClick={() => handleClick(item)}
@@ -66,9 +89,6 @@ export const ItemDetail = () => {
           </button>
         </div>
       </div>
-      <Link to={"/cart"}>
-        <BsCart />
-      </Link>
     </div>
   );
 };

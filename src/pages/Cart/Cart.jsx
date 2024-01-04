@@ -3,6 +3,7 @@ import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { ProductsArea } from "../../CSS/style";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 export const Cart = () => {
   const [data, setData] = useState(getItem("carrinhoYt") || []);
@@ -15,25 +16,28 @@ export const Cart = () => {
   return (
     <div>
       <header>
-        <h1>Cart</h1>
+        <h1>Store</h1>
+        <h5>Carrinho</h5>
       </header>
-      <ProductsArea>
+      <div className="itens">
         {data.map((e) => (
-          <div key={e.id}>
-            <Link to={`/${e.id}`}>
-              <h4>{e.title}</h4>
+          <div key={e.id} className="item">
+            <Link to={`/${e.id}`} className="linkSemDecoracao">
               <img src={e.thumbnail} alt="" />
-              <h4>$ {e.price}</h4>
+              <h4>{e.title}</h4>
             </Link>
-            <button
-              className="transparent-button"
-              onClick={() => removeItem(e)}
-            >
-              <BsFillCartDashFill />
-            </button>
+            <div>
+              <h4>R${e.price}</h4>
+              <button
+                className="transparent-button"
+                onClick={() => removeItem(e)}
+              >
+                <BsFillCartDashFill />
+              </button>
+            </div>
           </div>
         ))}
-      </ProductsArea>
+      </div>
     </div>
   );
 };
