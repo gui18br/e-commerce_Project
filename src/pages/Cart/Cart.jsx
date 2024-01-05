@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
-import { ProductsArea } from "../../CSS/style";
 import { Link } from "react-router-dom";
 import "./style.css";
 
@@ -15,10 +14,10 @@ export const Cart = () => {
   };
   return (
     <div>
-      <header>
+      {/* <header>
         <h1>Store</h1>
         <h5>Carrinho</h5>
-      </header>
+      </header> */}
       <div className="itens">
         {data.map((e) => (
           <div key={e.id} className="item">

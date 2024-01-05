@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BsFillCartCheckFill,
-  BsFillCartPlusFill,
-  BsCart,
-} from "react-icons/bs";
+import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
@@ -11,6 +7,7 @@ import "./style.css";
 import { css } from "@emotion/react";
 import { PropagateLoader } from "react-spinners";
 import { FaShoppingCart } from "react-icons/fa";
+import { getAllProducts } from "../../services/produto.service";
 
 export const ItemDetail = () => {
   const [cart, setCart] = useState(getItem("carrinhoYt") || []);
@@ -19,13 +16,17 @@ export const ItemDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchApi = async () => {
-      const url = "https://api.mercadolibre.com/sites/MLB/search?q=moveis";
-      const response = await fetch(url);
-      const objJson = await response.json();
-      setData(objJson.results);
+    const fetchData = async () => {
+      try {
+        const products = await getAllProducts();
+        console.log(products);
+        setData(products);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
     };
-    fetchApi();
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export const ItemDetail = () => {
       <PropagateLoader
         css={override}
         size={15}
-        color={"crimson"}
+        color={"#dfb07a"}
         loading={true}
       />
     );
@@ -63,19 +64,11 @@ export const ItemDetail = () => {
 
   return (
     <div className="container">
-      <header>
-        <h1>Store</h1>
-        <Link to={"/cart"} className="linkSemDecoracao">
-          <div className="carrinho">
-            <FaShoppingCart color="crimson" />
-          </div>
-        </Link>
-      </header>
       <div className="item-venda" key={item.id}>
-        <img src={item.thumbnail} alt="" />
+        <img className="image" src={item.thumbnail} alt="" />
         <div className="buy">
           <h1>{item.title}</h1>
-          <p>R${item.original_price}</p>
+          {item.original_price ? <p>R${item.original_price}</p> : null}
           <h2>R${item.price}</h2>
           <button
             className="transparent-button"

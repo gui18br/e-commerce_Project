@@ -1,6 +1,6 @@
 header {
   display: flex;
-  background-color: crimson;
+  background-color: #dfb07a;
   color: white;
   margin-bottom: 1rem;
   align-items: center;
@@ -11,13 +11,39 @@ header h1 {
   margin-left: 1rem;
 }
 
-.carrinho {
-  display: flex;
-  flex-direction: row-reverse;
-  margin-right: 1rem;
-  background-color: white;
-  padding: 0.5rem;
+.initial-image {
+  height: 460px;
+  width: 800px;
   border-radius: 1rem;
+  background-color: rgb(255, 255, 255);
+  padding: 0.2rem;
+  margin-bottom: 2rem;
+}
+
+.carousel-itens {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-item {
+  height: 320px;
+  width: 230px;
+  border: 0.5px solid rgba(0, 0, 0, 0.151);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .linkSemDecoracao {
@@ -31,7 +57,7 @@ header h1 {
 .transparent-button {
   height: 40px;
   width: 200px;
-  background-color: crimson;
+  background-color: #dfb07a;
   color: #fff;
   padding: 10px 20px;
   border: none;

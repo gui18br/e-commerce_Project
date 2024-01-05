@@ -7,19 +7,25 @@ import { ProductsArea } from "../../CSS/style";
 import "./style.css";
 import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { getAllProducts } from "../../services/produto.service";
+import coupleMovingSofaImage from "../../assets/homem-e-mulher-encantados-positivamente-brincando-com-seu-cachorro-favorito-posam-no-sofa.jpg";
 
 export const Store = () => {
   const [data, setData] = useState([]);
   const [cart, setCart] = useState(getItem("carrinhoYt") || []);
 
   useEffect(() => {
-    const fetchApi = async () => {
-      const url = "https://api.mercadolibre.com/sites/MLB/search?q=moveis";
-      const response = await fetch(url);
-      const objJson = await response.json();
-      setData(objJson.results);
+    const fetchData = async () => {
+      try {
+        const products = await getAllProducts();
+        console.log(products);
+        setData(products);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
     };
-    fetchApi();
+
+    fetchData();
   }, []);
 
   const override = css`
@@ -52,22 +58,25 @@ export const Store = () => {
 
   return (
     <div>
-      <header>
+      {/* <header>
         <h1>Store</h1>
         <Link to={"/cart"} className="linkSemDecoracao">
           <div className="carrinho">
             <FaShoppingCart color="crimson" />
           </div>
         </Link>
-      </header>
-      <ProductsArea>
+      </header> */}
+      <div className="div-image">
+        <img className="initial-image" src={coupleMovingSofaImage} alt="" />
+      </div>
+      <div className="carousel-itens">
         {data.map((e) => [
-          <div key={e.id}>
-            <Link to={`/${e.id}`}>
+          <div className="card-item" key={e.id}>
+            <Link className="link" to={`/${e.id}`}>
               <h4>{e.title}</h4>
               <img src={e.thumbnail} alt="" />
-              <h4>$ {e.price}</h4>
             </Link>
+            <h4>R${e.price}</h4>
             <button
               className="transparent-button"
               onClick={() => handleClick(e)}
@@ -80,7 +89,7 @@ export const Store = () => {
             </button>
           </div>,
         ])}
-      </ProductsArea>
+      </div>
     </div>
   );
 };
