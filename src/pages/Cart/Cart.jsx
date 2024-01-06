@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { Cabecalho } from "../../components/header/index.js";
+
 import "./style.css";
 
 export const Cart = () => {
@@ -14,10 +16,8 @@ export const Cart = () => {
   };
   return (
     <div>
-      {/* <header>
-        <h1>Store</h1>
-        <h5>Carrinho</h5>
-      </header> */}
+      <Cabecalho cartDisable={true} />
+
       <div className="itens">
         {data.map((e) => (
           <div key={e.id} className="item">

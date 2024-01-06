@@ -9,6 +9,8 @@ import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { getAllProducts } from "../../services/produto.service";
 import coupleMovingSofaImage from "../../assets/homem-e-mulher-encantados-positivamente-brincando-com-seu-cachorro-favorito-posam-no-sofa.jpg";
+import { useCart } from "../../context/CartContext";
+import { Cabecalho } from "../../components/header/index.js";
 
 export const Store = () => {
   const [data, setData] = useState([]);
@@ -58,14 +60,7 @@ export const Store = () => {
 
   return (
     <div>
-      {/* <header>
-        <h1>Store</h1>
-        <Link to={"/cart"} className="linkSemDecoracao">
-          <div className="carrinho">
-            <FaShoppingCart color="crimson" />
-          </div>
-        </Link>
-      </header> */}
+      <Cabecalho qtdItens={`${cart.length}`} />
       <div className="div-image">
         <img className="initial-image" src={coupleMovingSofaImage} alt="" />
       </div>

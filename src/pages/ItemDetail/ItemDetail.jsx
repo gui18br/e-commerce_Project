@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
-import { Link } from "react-router-dom";
-import "./style.css";
 import { css } from "@emotion/react";
 import { PropagateLoader } from "react-spinners";
-import { FaShoppingCart } from "react-icons/fa";
 import { getAllProducts } from "../../services/produto.service";
+import { Cabecalho } from "../../components/header/index.js";
+import "./style.css";
 
 export const ItemDetail = () => {
   const [cart, setCart] = useState(getItem("carrinhoYt") || []);
@@ -63,23 +62,27 @@ export const ItemDetail = () => {
   };
 
   return (
-    <div className="container">
-      <div className="item-venda" key={item.id}>
-        <img className="image" src={item.thumbnail} alt="" />
-        <div className="buy">
-          <h1>{item.title}</h1>
-          {item.original_price ? <p>R${item.original_price}</p> : null}
-          <h2>R${item.price}</h2>
-          <button
-            className="transparent-button"
-            onClick={() => handleClick(item)}
-          >
-            {cart.some((itemCart) => itemCart.id === item.id) ? (
-              <BsFillCartCheckFill />
-            ) : (
-              <BsFillCartPlusFill />
-            )}
-          </button>
+    <div>
+      <Cabecalho qtdItens={`${cart.length}`} />
+
+      <div className="container">
+        <div className="item-venda" key={item.id}>
+          <img className="image" src={item.thumbnail} alt="" />
+          <div className="buy">
+            <h1>{item.title}</h1>
+            {item.original_price ? <p>R${item.original_price}</p> : null}
+            <h2>R${item.price}</h2>
+            <button
+              className="transparent-button"
+              onClick={() => handleClick(item)}
+            >
+              {cart.some((itemCart) => itemCart.id === item.id) ? (
+                <BsFillCartCheckFill />
+              ) : (
+                <BsFillCartPlusFill />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>
