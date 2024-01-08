@@ -36,21 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.carrinho {
-  display: flex;
-  align-items: center;
-  margin-right: 1rem;
-  background-color: white;
-  color: #dfb07a;
-  padding: 0.5rem;
-  border-radius: 1.5rem;
-  border: 0;
-  cursor: pointer;
-}
-
-.carrinho:hover {
-  background-color: transparent;
-  color: white;
-  border: 0.5px white solid;
-}

@@ -2,41 +2,120 @@ import React, { useState } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { Cabecalho } from "../../components/header/index.js";
-
+import { Header } from "../../components/header/index.js";
+import cart from "../../assets/14182.jpg";
+import { useHistory } from "react-router-dom";
+import { searchCep } from "../../services/cep.service.js";
 import "./style.css";
 
 export const Cart = () => {
   const [data, setData] = useState(getItem("carrinhoYt") || []);
+  const [endereco, setEndereco] = useState();
+
+  const history = useHistory();
+
+  let totalPrice = 0;
+  data.forEach((obj) => {
+    console.log((totalPrice += obj.price));
+  });
 
   const removeItem = (obj) => {
     const arraFilter = data.filter((e) => e.id !== obj.id);
     setData(arraFilter);
     setItem("carrinhoYt", arraFilter);
   };
-  return (
-    <div>
-      <Cabecalho cartDisable={true} />
 
-      <div className="itens">
-        {data.map((e) => (
-          <div key={e.id} className="item">
-            <Link to={`/${e.id}`} className="linkSemDecoracao">
-              <img src={e.thumbnail} alt="" />
-              <h4>{e.title}</h4>
-            </Link>
-            <div>
-              <h4>R${e.price}</h4>
-              <button
-                className="transparent-button"
-                onClick={() => removeItem(e)}
-              >
-                <BsFillCartDashFill />
-              </button>
+  const handleClick = () => {
+    history.push("/");
+  };
+
+  const handleSearchCEP = async () => {
+    try {
+      const cepDigitado = document.getElementById("cep").value;
+      const resultado = await searchCep(cepDigitado);
+      if (resultado.cidade !== "") {
+        setEndereco(resultado);
+      } else {
+        alert("Informe um CEP correto!");
+      }
+    } catch (e) {
+      console.error("Erro ao pesquisar CEP: ", e);
+    }
+  };
+  return (
+    <div className="container">
+      <Header cartDisable={true} />
+      {totalPrice > 0 ? (
+        <div className="itens">
+          {data.map((e) => (
+            <div key={e.id} className="item">
+              <Link to={`/${e.id}`} className="linkSemDecoracao">
+                <img src={e.thumbnail} alt="" />
+                <h4 className="title-item">{e.title.slice(0, 50) + "..."}</h4>
+              </Link>
+              <div className="price-button">
+                <h4>
+                  {e.price.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </h4>
+                <button
+                  className="transparent-button"
+                  onClick={() => removeItem(e)}
+                >
+                  <BsFillCartDashFill />
+                </button>
+              </div>
+            </div>
+          ))}
+          <div className="bottom-cart">
+            <div className="endereco">
+              <div className="input-endereco">
+                <h3>Entrega</h3>
+                <label htmlFor="cep">CEP: </label>
+                <input type="text" name="cep" id="cep" />
+                <button
+                  className="transparent-button"
+                  onClick={handleSearchCEP}
+                >
+                  Pesquisar
+                </button>
+              </div>
+              <div className="dados-coluna">
+                <div className="dados-endereco">
+                  <p>Cidade: {endereco?.cidade || ""}</p>
+                  <p>Bairro: {endereco?.bairro || ""}</p>
+                  <p>Endereço: {endereco?.endereco || ""}</p>
+                  <p>UF: {endereco?.uf || ""}</p>
+                </div>
+              </div>
+            </div>
+            <div className="total-pricing">
+              <h1>
+                Total:{" "}
+                {totalPrice.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </h1>
+              <p> - Frete: Grátis</p>
+              <button className="transparent-button">Comprar</button>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="no-itens">
+          <h1>Carrinho Vazio :/</h1>
+          <p>
+            Adicione itens ao seu carrinho para poder proseguir com a compra!
+          </p>
+          <img className="cart-image" src={cart} alt="" />
+          <button className="transparent-button" onClick={() => handleClick()}>
+            Ir
+          </button>
+        </div>
+      )}
     </div>
   );
 };

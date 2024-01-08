@@ -1,7 +1,29 @@
+.no-itens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 3rem;
+  background-color: white;
+  padding: 5rem 5rem 5.75rem 5rem;
+  border: 0.5px solid rgba(0, 0, 0, 0.151);
+}
+
+.cart-image {
+  width: 200px;
+  height: 200px;
+  margin-top: 2rem;
+}
+
 .itens {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  top: 3rem;
+  background-color: white;
+  padding: 5rem 5rem 1.4rem 5rem;
+  border: 0.5px solid rgba(0, 0, 0, 0.151);
 }
 
 .item {
@@ -9,8 +31,18 @@
   display: flex;
   align-items: center;
   text-align: center;
-  border-bottom: 1px gray solid;
-  margin-bottom: 1rem;
+  justify-content: center;
+  border-bottom: 1px rgb(190, 190, 190) solid;
+  margin-bottom: 3rem;
+}
+
+.price-button {
+  margin: 0rem 0 1rem 4rem;
+}
+
+.title-item {
+  width: 400px;
+  margin-left: 2rem;
 }
 
 .linkSemDecoracao {
@@ -19,6 +51,64 @@
   justify-content: center;
   text-decoration: none;
   color: inherit;
+}
+
+.bottom-cart {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.endereco {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+  margin-bottom: 2rem;
+}
+
+.endereco h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.endereco button {
+  margin-top: 0.5rem;
+}
+
+.input-endereco {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-right: 3rem;
+}
+
+.dados-endereco {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.dados-endereco p {
+  margin: 0.2rem 0;
+  border-bottom: 2px rgb(190, 190, 190) solid;
+}
+
+.total-pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 10rem;
+  margin-bottom: 2rem;
+}
+
+.total-pricing h1 {
+  margin: 0;
+}
+
+.total-pricing p {
+  margin: 0 0 1rem 0;
 }
 
 .transparent-button {

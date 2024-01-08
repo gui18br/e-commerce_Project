@@ -1,8 +1,9 @@
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
+import "./style.css";
 
-export function Cabecalho(props) {
+export function Header(props) {
   const history = useHistory();
 
   const handleClick = () => {
@@ -11,10 +12,12 @@ export function Cabecalho(props) {
 
   return (
     <header>
-      <h1>Store</h1>
+      <h1 className="shopName">Store</h1>
       {!props.cartDisable ? (
         <button className="carrinho" onClick={handleClick}>
-          <p className="">{props.qtdItens}</p>
+          {props.qtdItens > 0 ? (
+            <p className="qtdItens">{props.qtdItens}</p>
+          ) : null}
           <FaShoppingCart />
         </button>
       ) : null}

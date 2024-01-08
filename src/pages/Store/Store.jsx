@@ -10,7 +10,7 @@ import { css } from "@emotion/react";
 import { getAllProducts } from "../../services/produto.service";
 import coupleMovingSofaImage from "../../assets/homem-e-mulher-encantados-positivamente-brincando-com-seu-cachorro-favorito-posam-no-sofa.jpg";
 import { useCart } from "../../context/CartContext";
-import { Cabecalho } from "../../components/header/index.js";
+import { Header } from "../../components/header/index.js";
 
 export const Store = () => {
   const [data, setData] = useState([]);
@@ -20,7 +20,6 @@ export const Store = () => {
     const fetchData = async () => {
       try {
         const products = await getAllProducts();
-        console.log(products);
         setData(products);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
@@ -60,18 +59,23 @@ export const Store = () => {
 
   return (
     <div>
-      <Cabecalho qtdItens={`${cart.length}`} />
-      <div className="div-image">
-        <img className="initial-image" src={coupleMovingSofaImage} alt="" />
-      </div>
+      <Header qtdItens={`${cart.length}`} />
+
+      <img className="initial-image" src={coupleMovingSofaImage} alt="" />
+
       <div className="carousel-itens">
         {data.map((e) => [
           <div className="card-item" key={e.id}>
             <Link className="link" to={`/${e.id}`}>
-              <h4>{e.title}</h4>
+              <h4>{e.title.slice(0, 50) + "..."}</h4>
               <img src={e.thumbnail} alt="" />
             </Link>
-            <h4>R${e.price}</h4>
+            <h4>
+              {e.price.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </h4>
             <button
               className="transparent-button"
               onClick={() => handleClick(e)}

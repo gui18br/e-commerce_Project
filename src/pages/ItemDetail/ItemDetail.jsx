@@ -5,7 +5,7 @@ import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { css } from "@emotion/react";
 import { PropagateLoader } from "react-spinners";
 import { getAllProducts } from "../../services/produto.service";
-import { Cabecalho } from "../../components/header/index.js";
+import { Header } from "../../components/header/index.js";
 import "./style.css";
 
 export const ItemDetail = () => {
@@ -62,15 +62,52 @@ export const ItemDetail = () => {
   };
 
   return (
-    <div>
-      <Cabecalho qtdItens={`${cart.length}`} />
+    <div className="container">
+      <Header qtdItens={`${cart.length}`} />
+      <div className="item-details">
+        <div className="item-image">
+          <img className="image" src={item.thumbnail} alt="" />
+        </div>
+        <div className="item-buy">
+          <h1 className="productTitle">{item.title}</h1>
+          <div className="prices">
+            {item.original_price ? (
+              <p className="original-price">
+                {item.original_price.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </p>
+            ) : null}
+            <h2 className="price">
+              {item.price.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </h2>
+          </div>
 
-      <div className="container">
+          <button
+            className="transparent-button"
+            onClick={() => handleClick(item)}
+          >
+            {cart.some((itemCart) => itemCart.id === item.id) ? (
+              <BsFillCartCheckFill />
+            ) : (
+              <BsFillCartPlusFill />
+            )}
+          </button>
+        </div>
+      </div>
+      {/* 
+      <div>
         <div className="item-venda" key={item.id}>
           <img className="image" src={item.thumbnail} alt="" />
           <div className="buy">
-            <h1>{item.title}</h1>
-            {item.original_price ? <p>R${item.original_price}</p> : null}
+            <h1 className="productTitle">{item.title}</h1>
+            {item.original_price ? (
+              <p className="originalPrice">R${item.original_price}</p>
+            ) : null}
             <h2>R${item.price}</h2>
             <button
               className="transparent-button"
@@ -84,7 +121,7 @@ export const ItemDetail = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
