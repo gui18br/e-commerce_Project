@@ -7,6 +7,7 @@ import cart from "../../assets/14182.jpg";
 import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.js";
 import "./style.css";
+import { Button } from "../../components/button/index.js";
 
 export const Cart = () => {
   const [data, setData] = useState(getItem("carrinhoYt") || []);
@@ -60,12 +61,9 @@ export const Cart = () => {
                     currency: "BRL",
                   })}
                 </h4>
-                <button
-                  className="transparent-button"
-                  onClick={() => removeItem(e)}
-                >
+                <Button onClick={() => removeItem(e)}>
                   <BsFillCartDashFill />
-                </button>
+                </Button>
               </div>
             </div>
           ))}
@@ -75,12 +73,7 @@ export const Cart = () => {
                 <h3>Entrega</h3>
                 <label htmlFor="cep">CEP: </label>
                 <input type="text" name="cep" id="cep" />
-                <button
-                  className="transparent-button"
-                  onClick={handleSearchCEP}
-                >
-                  Pesquisar
-                </button>
+                <Button onClick={handleSearchCEP}>Pesquisar</Button>
               </div>
               <div className="dados-coluna">
                 <div className="dados-endereco">
@@ -100,7 +93,7 @@ export const Cart = () => {
                 })}
               </h1>
               <p> - Frete: Grátis</p>
-              <button className="transparent-button">Comprar</button>
+              <Button>Comprar</Button>
             </div>
           </div>
         </div>
@@ -108,12 +101,10 @@ export const Cart = () => {
         <div className="no-itens">
           <h1>Carrinho Vazio :/</h1>
           <p>
-            Adicione itens ao seu carrinho para poder proseguir com a compra!
+            Adicione itens ao seu carrinho para poder prosseguir com a compra!
           </p>
           <img className="cart-image" src={cart} alt="" />
-          <button className="transparent-button" onClick={() => handleClick()}>
-            Ir
-          </button>
+          <Button onClick={() => handleClick()}>Ir</Button>
         </div>
       )}
     </div>

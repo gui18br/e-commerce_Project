@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
-import { FaShoppingCart } from "react-icons/fa";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
-import { ProductsArea } from "../../CSS/style";
-import "./style.css";
 import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { getAllProducts } from "../../services/produto.service";
 import coupleMovingSofaImage from "../../assets/homem-e-mulher-encantados-positivamente-brincando-com-seu-cachorro-favorito-posam-no-sofa.jpg";
-import { useCart } from "../../context/CartContext";
 import { Header } from "../../components/header/index.js";
+import { Button } from "../../components/button/index.js";
+import "./style.css";
 
 export const Store = () => {
   const [data, setData] = useState([]);
@@ -76,16 +74,13 @@ export const Store = () => {
                 currency: "BRL",
               })}
             </h4>
-            <button
-              className="transparent-button"
-              onClick={() => handleClick(e)}
-            >
+            <Button onClick={() => handleClick(e)}>
               {cart.some((itemCart) => itemCart.id === e.id) ? (
                 <BsFillCartCheckFill />
               ) : (
                 <BsFillCartPlusFill />
               )}
-            </button>
+            </Button>
           </div>,
         ])}
       </div>

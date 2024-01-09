@@ -64,21 +64,3 @@ h2 {
   width: 200px;
   border: 0.5px solid rgba(0, 0, 0, 0.055);
 }
-
-.transparent-button {
-  height: 40px;
-  width: 200px;
-  background-color: #dfb07a;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.transparent-button:hover {
-  background-color: transparent;
-  color: black;
-  border: 0.5px black solid;
-}

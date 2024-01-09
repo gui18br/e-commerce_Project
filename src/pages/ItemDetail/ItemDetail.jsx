@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
-import { css } from "@emotion/react";
 import { PropagateLoader } from "react-spinners";
 import { getAllProducts } from "../../services/produto.service";
 import { Header } from "../../components/header/index.js";
+import { Button } from "../../components/button/index.js";
+import { css } from "@emotion/react";
 import "./style.css";
 
 export const ItemDetail = () => {
@@ -87,41 +88,15 @@ export const ItemDetail = () => {
             </h2>
           </div>
 
-          <button
-            className="transparent-button"
-            onClick={() => handleClick(item)}
-          >
+          <Button onClick={() => handleClick(item)}>
             {cart.some((itemCart) => itemCart.id === item.id) ? (
               <BsFillCartCheckFill />
             ) : (
               <BsFillCartPlusFill />
             )}
-          </button>
+          </Button>
         </div>
       </div>
-      {/* 
-      <div>
-        <div className="item-venda" key={item.id}>
-          <img className="image" src={item.thumbnail} alt="" />
-          <div className="buy">
-            <h1 className="productTitle">{item.title}</h1>
-            {item.original_price ? (
-              <p className="originalPrice">R${item.original_price}</p>
-            ) : null}
-            <h2>R${item.price}</h2>
-            <button
-              className="transparent-button"
-              onClick={() => handleClick(item)}
-            >
-              {cart.some((itemCart) => itemCart.id === item.id) ? (
-                <BsFillCartCheckFill />
-              ) : (
-                <BsFillCartPlusFill />
-              )}
-            </button>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };
