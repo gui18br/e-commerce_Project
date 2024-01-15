@@ -1,0 +1,17 @@
+.signup-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.signup-auth-box {
+  display: flex;
+  width: 400px;
+  height: 500px;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: white;
+}

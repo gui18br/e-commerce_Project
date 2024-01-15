@@ -14,6 +14,28 @@ header {
   margin-left: 1rem;
 }
 
+.auth-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 65rem;
+}
+
+.auth-buttons div {
+  margin-top: 0.4rem;
+}
+
+.auth-button {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  color: white;
+}
+
+.auth-button:hover {
+  color: rgba(0, 0, 0, 0.521);
+}
+
 .carrinho {
   width: 35px;
   height: 35px;

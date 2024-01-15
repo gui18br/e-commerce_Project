@@ -27,22 +27,6 @@ export const Store = () => {
     fetchData();
   }, []);
 
-  const override = css`
-    display: block;
-    margin: 0 auto;
-  `;
-
-  if (!data) {
-    return (
-      <PropagateLoader
-        css={override}
-        size={15}
-        color={"crimson"}
-        loading={true}
-      />
-    );
-  }
-
   const handleClick = (obj) => {
     const element = cart.find((e) => e.id === obj.id);
     if (element) {

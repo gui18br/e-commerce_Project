@@ -6,15 +6,35 @@ import "./style.css";
 export function Header(props) {
   const history = useHistory();
 
-  const handleClick = () => {
+  const handleClickCart = () => {
     history.push("/cart");
+  };
+
+  const handleClickLogin = () => {
+    history.push("/login");
+  };
+
+  const handleClickSignup = () => {
+    history.push("/cadastro");
   };
 
   return (
     <header>
       <h1 className="shopName">Store</h1>
+      <div className="auth-buttons">
+        <div>
+          <button className="auth-button" onClick={() => handleClickSignup()}>
+            Cadastre-se
+          </button>
+        </div>
+        <div>
+          <button className="auth-button" onClick={() => handleClickLogin()}>
+            Fazer Login
+          </button>
+        </div>
+      </div>
       {!props.cartDisable ? (
-        <button className="carrinho" onClick={handleClick}>
+        <button className="carrinho" onClick={handleClickCart}>
           {props.qtdItens > 0 ? (
             <p className="qtdItens">{props.qtdItens}</p>
           ) : null}

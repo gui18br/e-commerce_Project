@@ -10,7 +10,25 @@
   transition: background-color 0.3s ease;
 }
 
+.small-button {
+  height: 40px;
+  width: 130px;
+  background-color: #dfb07a;
+  color: #fff;
+  padding: 6px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .button:hover {
+  background-color: transparent;
+  color: rgb(190, 190, 190);
+  border: 0.5px rgb(190, 190, 190) solid;
+}
+
+.small-button:hover {
   background-color: transparent;
   color: rgb(190, 190, 190);
   border: 0.5px rgb(190, 190, 190) solid;
