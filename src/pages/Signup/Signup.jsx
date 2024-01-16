@@ -11,7 +11,7 @@ export const Signup = () => {
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;
 
-  const signUp = async (data) => {
+  const signUp = async () => {
     setLoading(true);
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;

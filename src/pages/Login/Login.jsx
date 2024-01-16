@@ -13,7 +13,7 @@ export const Login = () => {
   const auth = FIREBASE_AUTH;
   const history = useHistory();
 
-  const login = async (data) => {
+  const login = async () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     setLoading(true);
