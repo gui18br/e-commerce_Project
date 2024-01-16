@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
-import { PropagateLoader } from "react-spinners";
+
 import { getAllProducts } from "../../services/produto.service";
 import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
-import { css } from "@emotion/react";
+
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import "./style.css";
 
 export const ItemDetail = () => {
@@ -34,19 +36,13 @@ export const ItemDetail = () => {
     setItem1(selectedItem);
   }, [data, id]);
 
-  const override = css`
-    display: block;
-    margin: 0 auto;
-  `;
-
   if (!item) {
     return (
-      <PropagateLoader
-        css={override}
-        size={15}
-        color={"#dfb07a"}
-        loading={true}
-      />
+      <Box
+        sx={{ display: "flex", justifyContent: "center", marginTop: "18rem" }}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
     );
   }
 

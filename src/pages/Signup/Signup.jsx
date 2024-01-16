@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
+import { useHistory } from "react-router-dom";
 import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -9,7 +10,10 @@ import "./style.css";
 
 export const Signup = () => {
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState();
   const auth = FIREBASE_AUTH;
+
+  const history = useHistory();
 
   const signUp = async () => {
     setLoading(true);
@@ -21,6 +25,8 @@ export const Signup = () => {
         email,
         password
       );
+      setToken(response.user.accessToken);
+      history.push("/");
     } catch (error) {
       alert("Signup failed", error.message);
     } finally {

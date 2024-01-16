@@ -73,7 +73,9 @@ export const Cart = () => {
                 <h3>Entrega</h3>
                 <label htmlFor="cep">CEP: </label>
                 <input type="text" name="cep" id="cep" />
-                <Button onClick={handleSearchCEP}>Pesquisar</Button>
+                <Button onClick={handleSearchCEP} smallButton={true}>
+                  Pesquisar
+                </Button>
               </div>
               <div className="dados-coluna">
                 <div className="dados-endereco">

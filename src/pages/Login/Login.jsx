@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Button } from "../../components/button/index.js";
 import { useHistory } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
+import { useToken } from "../../context/TokenContext.js";
 import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -13,13 +15,18 @@ export const Login = () => {
   const auth = FIREBASE_AUTH;
   const history = useHistory();
 
+  const { updateTokenData } = useToken();
+
   const login = async () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
+      const accessToken = response.user.accessToken;
+      setItem("token", accessToken);
+      updateTokenData(accessToken);
+      history.push("/");
     } catch (error) {
       alert("Falha ao logar", error);
     } finally {

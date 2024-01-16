@@ -10,6 +10,56 @@ header {
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.075);
 }
 
+.menu {
+  margin-left: 65.5rem;
+  margin-right: 1.5rem;
+}
+
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-container.menu-open {
+  position: relative;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.trigger-word {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.dropdown-menu button {
+  height: 30px;
+  width: 100px;
+  margin-top: 1rem;
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
 .shopName {
   margin-left: 1rem;
 }
@@ -23,6 +73,7 @@ header {
 
 .auth-buttons div {
   margin-top: 0.4rem;
+  margin-right: 0.5rem;
 }
 
 .auth-button {
