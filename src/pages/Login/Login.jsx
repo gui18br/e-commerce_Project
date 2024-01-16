@@ -4,10 +4,8 @@ import { useHistory } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
 import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
-import { Spinner } from "flowbite-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import { css } from "@emotion/react";
 import "./style.css";
 
 export const Login = () => {
@@ -51,7 +49,7 @@ export const Login = () => {
               </Box>
             </>
           ) : (
-            <div>
+            <>
               <div className="label-input">
                 <label htmlFor="">Email</label>
                 <input className="input" id="email" type="email" />
@@ -77,7 +75,7 @@ export const Login = () => {
                 <p>Não possui conta? Cadastre-se</p>
                 <Button onClick={() => handleClickSignup()}>Cadastrar</Button>
               </div>
-            </div>
+            </>
           )}
         </div>
       </div>
