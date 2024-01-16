@@ -3,7 +3,6 @@
   width: 200px;
   background-color: #dfb07a;
   color: #fff;
-  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -11,11 +10,10 @@
 }
 
 .small-button {
-  height: 40px;
-  width: 130px;
+  height: 30px;
+  width: 140px;
   background-color: #dfb07a;
   color: #fff;
-  padding: 6px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
