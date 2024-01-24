@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.js";
 import { Header } from "../../components/header/index.js";
 import cart from "../../assets/14182.jpg";
 import { useHistory } from "react-router-dom";
@@ -10,7 +11,12 @@ import "./style.css";
 import { Button } from "../../components/button/index.js";
 
 export const Cart = () => {
-  const [data, setData] = useState(getItem("carrinhoYt") || []);
+  const { tokenData, userEmail } = useAuth();
+  const [data, setData] = useState(
+    tokenData && getItem(userEmail)
+      ? getItem(userEmail)
+      : getItem("userNotLogged") || []
+  );
   const [endereco, setEndereco] = useState();
 
   const history = useHistory();
@@ -23,7 +29,7 @@ export const Cart = () => {
   const removeItem = (obj) => {
     const arraFilter = data.filter((e) => e.id !== obj.id);
     setData(arraFilter);
-    setItem("carrinhoYt", arraFilter);
+    setItem(tokenData ? userEmail : "userNotLogged", arraFilter);
   };
 
   const handleClick = () => {
@@ -95,7 +101,11 @@ export const Cart = () => {
                 })}
               </h1>
               <p> - Frete: Grátis</p>
-              <Button>Comprar</Button>
+              <Button
+                onClick={() => (tokenData ? null : history.push("/login"))}
+              >
+                Comprar
+              </Button>
             </div>
           </div>
         </div>

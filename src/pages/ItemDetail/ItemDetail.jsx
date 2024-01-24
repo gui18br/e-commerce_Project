@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
-
 import { getAllProducts } from "../../services/produto.service";
 import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
-
+import { useAuth } from "../../context/AuthContext.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import "./style.css";
 
 export const ItemDetail = () => {
-  const [cart, setCart] = useState(getItem("carrinhoYt") || []);
+  const { userEmail, tokenData } = useAuth();
+
+  const [cart, setCart] = useState(
+    tokenData && getItem(userEmail)
+      ? getItem(userEmail)
+      : getItem("userNotLogged") || []
+  );
   const [data, setData] = useState([]);
   const [item, setItem1] = useState();
   const { id } = useParams();

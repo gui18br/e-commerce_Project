@@ -4,7 +4,7 @@ import { Button } from "../../components/button/index.js";
 import { useHistory } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
-import { useToken } from "../../context/TokenContext.js";
+import { useAuth } from "../../context/AuthContext.js";
 import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -15,7 +15,7 @@ export const Login = () => {
   const auth = FIREBASE_AUTH;
   const history = useHistory();
 
-  const { updateTokenData } = useToken();
+  const { updateTokenData, updateUserEmail } = useAuth();
 
   const login = async () => {
     const email = document.getElementById("email").value;
@@ -23,8 +23,11 @@ export const Login = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
+      const emailFirebase = response.user.email;
       const accessToken = response.user.accessToken;
+      setItem("userEmail", emailFirebase);
       setItem("token", accessToken);
+      updateUserEmail(emailFirebase);
       updateTokenData(accessToken);
       history.push("/");
     } catch (error) {

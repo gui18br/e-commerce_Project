@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { useToken } from "../../context/TokenContext.js";
+import { useAuth } from "../../context/AuthContext.js";
 import "./style.css";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
 
@@ -11,7 +11,7 @@ export function Header(props) {
 
   const history = useHistory();
 
-  const { tokenData, updateTokenData } = useToken();
+  const { tokenData, updateTokenData } = useAuth();
 
   const handleCliclLogout = () => {
     auth

@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
-import { PropagateLoader } from "react-spinners";
-import { css } from "@emotion/react";
 import { getAllProducts } from "../../services/produto.service";
 import coupleMovingSofaImage from "../../assets/homem-e-mulher-encantados-positivamente-brincando-com-seu-cachorro-favorito-posam-no-sofa.jpg";
 import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
+import { useAuth } from "../../context/AuthContext.js";
 import "./style.css";
 
 export const Store = () => {
+  const { userEmail, tokenData } = useAuth();
   const [data, setData] = useState([]);
-  const [cart, setCart] = useState(getItem("carrinhoYt") || []);
+  const [cart, setCart] = useState(
+    tokenData && getItem(userEmail)
+      ? getItem(userEmail)
+      : getItem("userNotLogged") || []
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,10 +36,10 @@ export const Store = () => {
     if (element) {
       const arrFilter = cart.filter((e) => e.id !== obj.id);
       setCart(arrFilter);
-      setItem("carrinhoYt", arrFilter);
+      setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
     } else {
       setCart([...cart, obj]);
-      setItem("carrinhoYt", [...cart, obj]);
+      setItem(tokenData ? userEmail : "userNotLogged", [...cart, obj]);
     }
   };
 
