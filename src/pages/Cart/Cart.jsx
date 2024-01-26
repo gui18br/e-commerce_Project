@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -21,15 +21,32 @@ export const Cart = () => {
 
   const history = useHistory();
 
+  useEffect(() => {
+    if (tokenData !== "" && getItem("userNotLogged")) {
+      const combinedCart = [...getItem("userNotLogged"), ...getItem(userEmail)];
+      setData(combinedCart);
+    }
+  }, [tokenData, userEmail]);
+
   let totalPrice = 0;
   data.forEach((obj) => {
     console.log((totalPrice += obj.price));
   });
 
   const removeItem = (obj) => {
+    // Remover o item do estado
     const arraFilter = data.filter((e) => e.id !== obj.id);
     setData(arraFilter);
-    setItem(tokenData ? userEmail : "userNotLogged", arraFilter);
+
+    // Atualizar o carrinho do usuário logado no localStorage
+    if (tokenData) {
+      setItem(userEmail, arraFilter);
+    }
+
+    // Atualizar o carrinho do usuário não logado no localStorage
+    const notLoggedInCart = getItem("userNotLogged") || [];
+    const notLoggedInFiltered = notLoggedInCart.filter((e) => e.id !== obj.id);
+    setItem("userNotLogged", notLoggedInFiltered);
   };
 
   const handleClick = () => {

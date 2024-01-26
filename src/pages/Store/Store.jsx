@@ -19,6 +19,13 @@ export const Store = () => {
   );
 
   useEffect(() => {
+    if (tokenData !== "" && getItem("userNotLogged")) {
+      const combinedCart = [...getItem("userNotLogged"), ...getItem(userEmail)];
+      setCart(combinedCart);
+    }
+  }, [tokenData, userEmail]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const products = await getAllProducts();
