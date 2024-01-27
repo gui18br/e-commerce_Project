@@ -30,6 +30,11 @@
   background-color: #fff;
 }
 
+.image-store {
+  height: 90px;
+  width: 90px;
+}
+
 .link {
   text-decoration: none;
   color: inherit;

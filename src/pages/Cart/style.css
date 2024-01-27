@@ -27,7 +27,7 @@
 }
 
 .item {
-  width: 800px;
+  width: 900px;
   display: flex;
   align-items: center;
   text-align: center;
@@ -37,7 +37,7 @@
 }
 
 .price-button {
-  margin: 0rem 0 1rem 4rem;
+  margin: 0rem 0 1rem 3rem;
 }
 
 .title-item {
@@ -51,6 +51,17 @@
   justify-content: center;
   text-decoration: none;
   color: inherit;
+}
+
+.quantity {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+#quantidade {
+  margin-left: 2rem;
 }
 
 .bottom-cart {

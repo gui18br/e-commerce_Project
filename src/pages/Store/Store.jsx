@@ -45,14 +45,22 @@ export const Store = () => {
       setCart(arrFilter);
       setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
     } else {
-      setCart([...cart, obj]);
-      setItem(tokenData ? userEmail : "userNotLogged", [...cart, obj]);
+      const newItem = { ...obj, quantity: 1 };
+      setCart([...cart, newItem]);
+      setItem(tokenData ? userEmail : "userNotLogged", [...cart, newItem]);
     }
   };
 
   return (
     <div>
-      <Header qtdItens={`${cart.length}`} />
+      <Header
+        qtdItens={`${data.map((item) => {
+          let totalQuantity;
+          totalQuantity += item.quantity;
+
+          return totalQuantity;
+        })}`}
+      />
 
       <img className="initial-image" src={coupleMovingSofaImage} alt="" />
 
@@ -61,7 +69,7 @@ export const Store = () => {
           <div className="card-item" key={e.id}>
             <Link className="link" to={`/${e.id}`}>
               <h4>{e.title.slice(0, 50) + "..."}</h4>
-              <img src={e.thumbnail} alt="" />
+              <img className="image-store" src={e.thumbnail} alt="" />
             </Link>
             <h4>
               {e.price.toLocaleString("pt-BR", {

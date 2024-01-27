@@ -19,7 +19,7 @@ export function Header(props) {
       .then(() => {
         updateTokenData("");
         localStorage.removeItem("token");
-        history.push("/");
+        history.push("/login");
       })
       .catch((error) => {
         alert("Erro ao fazer o logout");

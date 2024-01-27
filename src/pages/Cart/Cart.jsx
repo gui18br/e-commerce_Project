@@ -32,8 +32,32 @@ export const Cart = () => {
 
   let totalPrice = 0;
   data.forEach((obj) => {
-    console.log((totalPrice += obj.price));
+    console.log((totalPrice += obj.price * obj.quantity));
   });
+
+  const plusItem = (id) => {
+    const updateCart = data.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+
+      return item;
+    });
+    setData(updateCart);
+    setItem(tokenData ? userEmail : "userNotLogged", updateCart);
+  };
+
+  const subtractItem = (id) => {
+    const updateCart = data.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+
+      return item;
+    });
+    setData(updateCart);
+    setItem(tokenData ? userEmail : "userNotLogged", updateCart);
+  };
 
   const removeItem = (obj) => {
     const arraFilter = data.filter((e) => e.id !== obj.id);
@@ -76,6 +100,7 @@ export const Cart = () => {
                 <img src={e.thumbnail} alt="" />
                 <h4 className="title-item">{e.title.slice(0, 50) + "..."}</h4>
               </Link>
+              <h4 id="quantidade">Qtd: {e.quantity}</h4>
               <div className="price-button">
                 <h4>
                   {e.price.toLocaleString("pt-BR", {
@@ -83,6 +108,19 @@ export const Cart = () => {
                     currency: "BRL",
                   })}
                 </h4>
+                <div className="quantity">
+                  <button id="plusItem" onClick={() => plusItem(e.id)}>
+                    +
+                  </button>
+                  <button
+                    id="subtractItem"
+                    onClick={() => {
+                      e.quantity === 1 ? removeItem(e) : subtractItem(e.id);
+                    }}
+                  >
+                    -
+                  </button>
+                </div>
                 <Button onClick={() => removeItem(e)}>
                   <BsFillCartDashFill />
                 </Button>

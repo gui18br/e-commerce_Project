@@ -63,10 +63,10 @@ export const ItemDetail = () => {
     if (element) {
       const arrFilter = cart.filter((e) => e.id !== obj.id);
       setCart(arrFilter);
-      setItem("carrinhoYt", arrFilter);
+      setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
     } else {
       setCart([...cart, obj]);
-      setItem("carrinhoYt", [...cart, obj]);
+      setItem(tokenData ? userEmail : "userNotLogged", [...cart, obj]);
     }
   };
 
