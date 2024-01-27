@@ -24,7 +24,9 @@ export const Cart = () => {
   useEffect(() => {
     if (tokenData !== "" && getItem("userNotLogged")) {
       const combinedCart = [...getItem("userNotLogged"), ...getItem(userEmail)];
+      setItem("userNotLogged", []);
       setData(combinedCart);
+      setItem(userEmail, combinedCart);
     }
   }, [tokenData, userEmail]);
 
@@ -34,16 +36,13 @@ export const Cart = () => {
   });
 
   const removeItem = (obj) => {
-    // Remover o item do estado
     const arraFilter = data.filter((e) => e.id !== obj.id);
     setData(arraFilter);
 
-    // Atualizar o carrinho do usuário logado no localStorage
     if (tokenData) {
       setItem(userEmail, arraFilter);
     }
 
-    // Atualizar o carrinho do usuário não logado no localStorage
     const notLoggedInCart = getItem("userNotLogged") || [];
     const notLoggedInFiltered = notLoggedInCart.filter((e) => e.id !== obj.id);
     setItem("userNotLogged", notLoggedInFiltered);
