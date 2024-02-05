@@ -1,0 +1,59 @@
+.payment-screen {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.payment-screen h1 {
+}
+
+.payment-endereco {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.payment-endereco p {
+  text-align: start;
+}
+
+.payment-method {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metodo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  width: 30%;
+  border: 1px black solid;
+  margin-top: 1rem;
+  background-color: transparent;
+}
+
+.selecionado {
+  background-color: red; /* Cor de fundo do botão selecionado */
+}
+
+.metodo h4 {
+  margin-left: 1rem;
+}
+
+.metodo .method-img {
+  margin-right: 1rem;
+}
+
+.method-img {
+  height: 40px;
+  width: 40px;
+}
+
+.payment-button {
+  margin-top: 4rem;
+  padding-bottom: 1.1rem;
+}

@@ -9,8 +9,10 @@ import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.js";
 import "./style.css";
 import { Button } from "../../components/button/index.js";
+import { useAddress } from "../../context/AddressContext.js";
 
 export const Cart = () => {
+  const { updateAddressData } = useAddress();
   const { tokenData, userEmail } = useAuth();
   const [data, setData] = useState(
     tokenData && getItem(userEmail)
@@ -76,12 +78,17 @@ export const Cart = () => {
     history.push("/");
   };
 
+  const handleClickPayment = () => {
+    history.push("/payment");
+  };
+
   const handleSearchCEP = async () => {
     try {
       const cepDigitado = document.getElementById("cep").value;
       const resultado = await searchCep(cepDigitado);
       if (resultado.cidade !== "") {
         setEndereco(resultado);
+        updateAddressData(resultado);
       } else {
         alert("Informe um CEP correto!");
       }
@@ -156,7 +163,9 @@ export const Cart = () => {
               </h1>
               <p> - Frete: Grátis</p>
               <Button
-                onClick={() => (tokenData ? null : history.push("/login"))}
+                onClick={() =>
+                  tokenData ? handleClickPayment() : history.push("/login")
+                }
               >
                 Comprar
               </Button>

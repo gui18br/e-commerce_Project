@@ -6,6 +6,7 @@ import { ItemDetail } from "./pages/ItemDetail/ItemDetail"; // Importe o compone
 import { Login } from "./pages/Login/Login";
 import { Signup } from "./pages/Signup/Signup";
 import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";
+import { Payment } from "./pages/Payment/Payment";
 
 export const Content = () => {
   return (
@@ -15,6 +16,7 @@ export const Content = () => {
       <Route exact path="/cadastro" component={Signup} />
       <Route exact path="/" component={Store} />
       <Route exact path="/cart" component={Cart} />
+      <Route exact path="/payment" component={Payment} />
       <Route path="/:id" component={ItemDetail} />
     </Switch>
   );
