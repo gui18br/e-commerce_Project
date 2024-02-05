@@ -51,19 +51,18 @@ export const Store = () => {
     }
   };
 
+  const calcQuantity = () => {
+    let quantidade = 0;
+    for (var i = 0; i < cart.length; i++) {
+      quantidade += cart[i].quantity;
+    }
+    return quantidade;
+  };
+
   return (
     <div>
-      <Header
-        qtdItens={`${data.map((item) => {
-          let totalQuantity;
-          totalQuantity += item.quantity;
-
-          return totalQuantity;
-        })}`}
-      />
-
+      <Header qtdItens={`${calcQuantity()}`} />
       <img className="initial-image" src={coupleMovingSofaImage} alt="" />
-
       <div className="carousel-itens">
         {data.map((e) => [
           <div className="card-item" key={e.id}>
