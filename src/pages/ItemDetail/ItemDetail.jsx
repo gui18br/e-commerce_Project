@@ -65,14 +65,23 @@ export const ItemDetail = () => {
       setCart(arrFilter);
       setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
     } else {
-      setCart([...cart, obj]);
-      setItem(tokenData ? userEmail : "userNotLogged", [...cart, obj]);
+      const newItem = { ...obj, quantity: 1 };
+      setCart([...cart, newItem]);
+      setItem(tokenData ? userEmail : "userNotLogged", [...cart, newItem]);
     }
+  };
+
+  const calcQuantity = () => {
+    let quantidade = 0;
+    for (var i = 0; i < cart.length; i++) {
+      quantidade += cart[i].quantity;
+    }
+    return quantidade;
   };
 
   return (
     <div className="container">
-      <Header qtdItens={`${cart.length}`} />
+      <Header qtdItens={`${calcQuantity()}`} />
       <div className="item-details">
         <div className="item-image">
           <img className="image" src={item.thumbnail} alt="" />
