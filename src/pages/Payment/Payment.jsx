@@ -6,18 +6,37 @@ import boleto from "../../assets/boleto-simbolo.png";
 import { useAddress } from "../../context/AddressContext";
 import { Button } from "../../components/button/index.js";
 import { ModalPix } from "../../components/modal-pix/index.js";
+import { ModalCartao } from "../../components/modal-cartao/index.js";
 
 export const Payment = () => {
   const { endereco } = useAddress();
   const [botaoSelecionado, setBotaoSelecionado] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenPix, setIsModalOpenPix] = useState(false);
+  const [isModalOpenCartao, setIsModalOpenCartao] = useState(false);
+  const [isModalOpenBoleto, setIsModalOpenBoleto] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleOpenModalPix = () => {
+    setIsModalOpenPix(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModalPix = () => {
+    setIsModalOpenPix(false);
+  };
+
+  const handleOpenModalCartao = () => {
+    setIsModalOpenCartao(true);
+  };
+
+  const handleCloseModalCartao = () => {
+    setIsModalOpenCartao(false);
+  };
+
+  const handleOpenModalBoleto = () => {
+    setIsModalOpenBoleto(true);
+  };
+
+  const handleCloseModalBoleto = () => {
+    setIsModalOpenBoleto(false);
   };
 
   return (
@@ -44,7 +63,7 @@ export const Payment = () => {
           }}
           onClick={() => {
             setBotaoSelecionado(1);
-            handleOpenModal();
+            handleOpenModalPix();
           }}
         >
           <h4>Pix</h4>
@@ -56,7 +75,10 @@ export const Payment = () => {
             backgroundColor: botaoSelecionado === 2 ? "#dfb07a" : "white",
             color: botaoSelecionado === 2 ? "white" : "black",
           }}
-          onClick={() => setBotaoSelecionado(2)}
+          onClick={() => {
+            setBotaoSelecionado(2);
+            handleOpenModalCartao();
+          }}
         >
           <h4>Cartão de Crédito</h4>
           <img className="method-img" src={cartao} alt="" />
@@ -73,9 +95,14 @@ export const Payment = () => {
           <img className="method-img" src={boleto} alt="" />
         </button>
       </div>
-      {isModalOpen && (
-        <div className="modal-pix">
-          <ModalPix closeModal={handleCloseModal} />
+      {isModalOpenPix && (
+        <div className="modal">
+          <ModalPix closeModal={handleCloseModalPix} />
+        </div>
+      )}
+      {isModalOpenCartao && (
+        <div className="modal">
+          <ModalCartao closeModal={handleCloseModalCartao} />
         </div>
       )}
 

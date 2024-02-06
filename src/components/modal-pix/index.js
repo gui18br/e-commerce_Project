@@ -9,7 +9,7 @@ export function ModalPix(props) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Pagamento Pix</h2>
+        <h2>Pagamento via Pix</h2>
         {!qrCode ? (
           <p>Para prosseguir com o pagamento gere o QR Code</p>
         ) : (
