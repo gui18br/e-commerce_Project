@@ -5,10 +5,20 @@ import cartao from "../../assets/png-transparent-credit-card-icon-money-credit-c
 import boleto from "../../assets/boleto-simbolo.png";
 import { useAddress } from "../../context/AddressContext";
 import { Button } from "../../components/button/index.js";
+import { ModalPix } from "../../components/modal-pix/index.js";
 
 export const Payment = () => {
   const { endereco } = useAddress();
   const [botaoSelecionado, setBotaoSelecionado] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="payment-screen">
@@ -32,7 +42,10 @@ export const Payment = () => {
             backgroundColor: botaoSelecionado === 1 ? "#dfb07a" : "white",
             color: botaoSelecionado === 1 ? "white" : "black",
           }}
-          onClick={() => setBotaoSelecionado(1)}
+          onClick={() => {
+            setBotaoSelecionado(1);
+            handleOpenModal();
+          }}
         >
           <h4>Pix</h4>
           <img className="method-img" src={pix} alt="" />
@@ -60,6 +73,11 @@ export const Payment = () => {
           <img className="method-img" src={boleto} alt="" />
         </button>
       </div>
+      {isModalOpen && (
+        <div className="modal-pix">
+          <ModalPix closeModal={handleCloseModal} />
+        </div>
+      )}
 
       <div className="payment-button">
         <Button>Comprar</Button>

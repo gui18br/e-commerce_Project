@@ -7,9 +7,6 @@
   width: 100%;
 }
 
-.payment-screen h1 {
-}
-
 .payment-endereco {
   display: flex;
   justify-content: space-evenly;
@@ -34,10 +31,7 @@
   border: 1px black solid;
   margin-top: 1rem;
   background-color: transparent;
-}
-
-.selecionado {
-  background-color: red; /* Cor de fundo do botão selecionado */
+  cursor: pointer;
 }
 
 .metodo h4 {
@@ -56,4 +50,10 @@
 .payment-button {
   margin-top: 4rem;
   padding-bottom: 1.1rem;
+}
+
+.modal-pix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
