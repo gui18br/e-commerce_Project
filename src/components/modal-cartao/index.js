@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./style.css";
-import qrCodeImg from "../../assets/qrcode.webp";
 import { Button } from "../button";
 
 export function ModalCartao(props) {
