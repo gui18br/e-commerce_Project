@@ -75,8 +75,8 @@ export const Login = () => {
   const handleSubmit = () => {
     loginSchema
       .validate(formValues, { abortEarly: false })
-      .then((data) => {
-        login(data.email, data.password);
+      .then(() => {
+        login();
       })
       .catch((yupErrors) => {
         yupErrors.inner.forEach((error) => {

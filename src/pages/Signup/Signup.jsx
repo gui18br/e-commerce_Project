@@ -6,7 +6,26 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
+import * as yup from "yup";
 import "./style.css";
+
+const signUpSchema = yup.object().shape({
+  name: yup.string().required("O nome é obrigatório"),
+  email: yup
+    .string()
+    .email("Digite um endereço de email válido")
+    .required("O email é obrigatório"),
+  cpf: yup.string().required("O CPF é obrigatório"),
+  password: yup
+    .string()
+    .required("Digite a sua senha")
+    .min(6, "A senha deve ter pelo menos 6 caracteres"),
+  confirmPassword: yup
+    .string()
+    .min(6, "A senha deve ter pelo menos 6 caracteres")
+    .oneOf([yup.ref("password")], "Sua senha deve ser a mesma")
+    .required("Por favor complete todos os campos"),
+});
 
 export const Signup = () => {
   const [loading, setLoading] = useState(false);
@@ -14,6 +33,34 @@ export const Signup = () => {
   const auth = FIREBASE_AUTH;
 
   const history = useHistory();
+
+  const [formValues, setFormValues] = useState({
+    name: "",
+    email: "",
+    cpf: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    cpf: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
+  };
 
   const signUp = async () => {
     setLoading(true);
@@ -32,6 +79,22 @@ export const Signup = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = () => {
+    signUpSchema
+      .validate(formValues, { abortEarly: false })
+      .then(() => {
+        signUp();
+      })
+      .catch((yupErrors) => {
+        yupErrors.inner.forEach((error) => {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [error.path]: error.message,
+          }));
+        });
+      });
   };
 
   return (
@@ -65,7 +128,7 @@ export const Signup = () => {
               </div>
               <div className="auth-button">
                 <div>
-                  <Button onClick={() => signUp()}>Cadastrar</Button>
+                  <Button onClick={handleSubmit}>Cadastrar</Button>
                 </div>
               </div>
             </>
