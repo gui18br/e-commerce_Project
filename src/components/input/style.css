@@ -1,0 +1,12 @@
+.input {
+  height: 30px;
+  width: 300px;
+  padding-inline-start: 4px;
+  border: 1px gray solid;
+  border-radius: 0.3rem;
+  margin-left: 1rem;
+}
+
+.invalid {
+  border: 1px red solid;
+}

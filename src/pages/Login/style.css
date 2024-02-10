@@ -39,15 +39,6 @@
   margin-left: 1rem;
 }
 
-.input {
-  height: 30px;
-  width: 300px;
-  padding-inline-start: 4px;
-  border: 1px gray solid;
-  border-radius: 0.3rem;
-  margin-left: 1rem;
-}
-
 .auth-button {
   display: flex;
   justify-content: space-evenly;
@@ -64,4 +55,13 @@
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
+}
+
+.error-message {
+  margin-left: 0.8rem;
+  color: rgb(184, 2, 2);
+}
+
+.error-message p {
+  margin: 0;
 }

@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import * as yup from "yup";
 import "./style.css";
+import { Input } from "../../components/input/index.js";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -112,26 +113,35 @@ export const Login = () => {
             <>
               <div className="label-input">
                 <label htmlFor="">Email</label>
-                <input
+                <Input
                   className="input"
                   id="email"
                   name="email"
                   type="email"
-                  value={formValues.email} // Use value e onChange para controlar o input
+                  value={formValues.email}
+                  error={!!errors.email}
+                  helperText={errors.email}
                   onChange={handleInputChange}
                   onKeyDown={handleInputChange}
                 />
                 <label htmlFor="">Senha</label>
-                <input
+                <Input
                   className="input"
                   id="password"
                   name="password"
                   type="password"
-                  value={formValues.password} // Use value e onChange para controlar o input
+                  value={formValues.password}
+                  error={!!errors.password}
+                  helperText={errors.password}
                   onChange={handleInputChange}
                   onKeyDown={handleInputChange}
                 />
               </div>
+              {(errors.email || errors.password) && (
+                <div className="error-message">
+                  <p>&#9888; {errors.email || errors.password}</p>
+                </div>
+              )}
               <div className="auth-button">
                 <div>
                   <Button smallButton={true} onClick={handleSubmit}>
