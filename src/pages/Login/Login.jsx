@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { setItem } from "../../services/LocalStorageFuncs";
 import { Button } from "../../components/button/index.js";
 import { useHistory } from "react-router-dom";
+import { Input } from "../../components/input/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
 import { useAuth } from "../../context/AuthContext.js";
@@ -10,7 +11,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import * as yup from "yup";
 import "./style.css";
-import { Input } from "../../components/input/index.js";
 
 const loginSchema = yup.object().shape({
   email: yup
