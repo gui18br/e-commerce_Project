@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
+import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
 import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useAuth } from "../../context/AuthContext.js";
 import Box from "@mui/material/Box";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
@@ -29,7 +31,7 @@ const signUpSchema = yup.object().shape({
 
 export const Signup = () => {
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState();
+  const { updateTokenData } = useAuth();
   const auth = FIREBASE_AUTH;
 
   const history = useHistory();
@@ -72,7 +74,7 @@ export const Signup = () => {
         email,
         password
       );
-      setToken(response.user.accessToken);
+      updateTokenData(response.user.accessToken);
       history.push("/");
     } catch (error) {
       alert("Signup failed", error.message);
@@ -114,18 +116,82 @@ export const Signup = () => {
             <>
               <div className="label-input">
                 <label htmlFor="">Nome</label>
-                <input className="input" type="text" />
+                <Input
+                  className="input"
+                  id="name"
+                  name="name"
+                  type="name"
+                  value={formValues.name}
+                  error={!!errors.name}
+                  helperText={errors.name}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputChange}
+                />
                 <label htmlFor="">Email</label>
-                <input className="input" id="email" type="email" />
+                <Input
+                  className="input"
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formValues.email}
+                  error={!!errors.email}
+                  helperText={errors.email}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputChange}
+                />
                 <label htmlFor="">CPF</label>
-                <input className="input" type="text" />
-                <label htmlFor="">Telefone</label>
-                <input className="input" type="tel" />
+                <Input
+                  className="input"
+                  id="cpf"
+                  name="cpf"
+                  type="cpf"
+                  value={formValues.cpf}
+                  error={!!errors.cpf}
+                  helperText={errors.cpf}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputChange}
+                />
                 <label htmlFor="">Senha</label>
-                <input className="input" id="password" type="password" />
-                <label htmlFor="">Repetir senha</label>
-                <input className="input" type="password" />
+                <Input
+                  className="input"
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={formValues.password}
+                  error={!!errors.password}
+                  helperText={errors.password}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputChange}
+                />
+                <label htmlFor="">Repetir Senha</label>
+                <Input
+                  className="input"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  value={formValues.confirmPassword}
+                  error={!!errors.confirmPassword}
+                  helperText={errors.confirmPassword}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputChange}
+                />
               </div>
+              {(errors.name ||
+                errors.email ||
+                errors.cpf ||
+                errors.password ||
+                errors.confirmPassword) && (
+                <div className="error-message">
+                  <p>
+                    &#9888;{" "}
+                    {errors.name ||
+                      errors.email ||
+                      errors.cpf ||
+                      errors.password ||
+                      errors.confirmPassword}
+                  </p>
+                </div>
+              )}
               <div className="auth-button">
                 <div>
                   <Button onClick={handleSubmit}>Cadastrar</Button>
