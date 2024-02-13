@@ -2,12 +2,18 @@ import React, { useEffect, useState } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
-import { getAllProducts } from "../../services/produto.service";
+import {
+  getAllProducts,
+  getLimitProducts,
+} from "../../services/produto.service";
 import coupleMovingSofaImage from "../../assets/homem-e-mulher-encantados-positivamente-brincando-com-seu-cachorro-favorito-posam-no-sofa.jpg";
 import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
 import { useAuth } from "../../context/AuthContext.js";
+import Pagination from "../../Paginations.js";
 import "./style.css";
+
+const LIMIT = 12;
 
 export const Store = () => {
   const { userEmail, tokenData } = useAuth();
@@ -17,6 +23,7 @@ export const Store = () => {
       ? getItem(userEmail)
       : getItem("userNotLogged") || []
   );
+  const [offset, setOffSet] = useState(0);
 
   useEffect(() => {
     if (tokenData !== "" && getItem("userNotLogged")) {
@@ -28,7 +35,7 @@ export const Store = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const products = await getAllProducts();
+        const products = await getLimitProducts(LIMIT, offset);
         setData(products);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
@@ -36,7 +43,7 @@ export const Store = () => {
     };
 
     fetchData();
-  }, []);
+  }, [offset]);
 
   const handleClick = (obj) => {
     const element = cart.find((e) => e.id === obj.id);
@@ -85,6 +92,12 @@ export const Store = () => {
             </Button>
           </div>,
         ])}
+        <Pagination
+          limit={LIMIT}
+          total={1200}
+          offset={offset}
+          setOffset={setOffSet}
+        />
       </div>
     </div>
   );
