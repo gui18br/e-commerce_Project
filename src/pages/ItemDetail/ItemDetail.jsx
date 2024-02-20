@@ -7,11 +7,13 @@ import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
 import { useAuth } from "../../context/AuthContext.js";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useProduct } from "../../context/ProductContext.js";
 import Box from "@mui/material/Box";
 import "./style.css";
 
 export const ItemDetail = () => {
   const { userEmail, tokenData } = useAuth();
+  const { product } = useProduct();
 
   const [cart, setCart] = useState(
     tokenData && getItem(userEmail)
@@ -32,8 +34,7 @@ export const ItemDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const products = await getAllProducts();
-        console.log(products);
+        const products = await getAllProducts(product);
         setData(products);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
@@ -41,7 +42,7 @@ export const ItemDetail = () => {
     };
 
     fetchData();
-  }, []);
+  }, [product]);
 
   useEffect(() => {
     const selectedItem = data.find((item) => item.id === id);
@@ -87,7 +88,7 @@ export const ItemDetail = () => {
           <img className="image" src={item.thumbnail} alt="" />
         </div>
         <div className="item-buy">
-          <h1 className="productTitle">{item.title}</h1>
+          <h1 className="productTitle">{item.title.slice(0, 108) + "."}</h1>
           <div className="prices">
             {item.original_price ? (
               <p className="original-price">

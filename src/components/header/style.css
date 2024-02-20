@@ -10,9 +10,42 @@ header {
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.075);
 }
 
+.store-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.store-links ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+.store-links li + li {
+  margin-left: 1rem;
+}
+
+.store-links button {
+  border: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.store-links button:hover {
+  color: rgba(0, 0, 0, 0.521);
+}
+
+.detailsLinks {
+  margin-right: 36rem;
+}
+
 .menu {
-  margin-left: 65.5rem;
-  margin-right: 1.5rem;
+  position: absolute;
+  right: 6rem;
 }
 
 .dropdown-container {
@@ -62,13 +95,16 @@ header {
 
 .shopName {
   margin-left: 1rem;
+  border: 0;
+  cursor: pointer;
 }
 
 .auth-buttons {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 65rem;
+  right: 5rem;
 }
 
 .auth-buttons div {
@@ -91,7 +127,8 @@ header {
   width: 35px;
   height: 35px;
   display: flex;
-  margin-right: 1rem;
+  margin-top: 0.5rem;
+  margin-right: 2rem;
   background-color: white;
   color: #dfb07a;
   padding: 0.5rem;
@@ -111,8 +148,8 @@ header {
 .qtdItens {
   width: 20px;
   position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
+  right: 1.5rem;
+  top: 0.7rem;
   color: white;
   background-color: green;
   border-radius: 10px;

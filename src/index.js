@@ -6,18 +6,21 @@ import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 import { AddressProvider } from "./context/AddressContext";
+import { ProductProvider } from "./context/ProductContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AddressProvider>
-      <AuthProvider>
-        <CartProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </CartProvider>
-      </AuthProvider>
-    </AddressProvider>
+    <ProductProvider>
+      <AddressProvider>
+        <AuthProvider>
+          <CartProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </CartProvider>
+        </AuthProvider>
+      </AddressProvider>
+    </ProductProvider>
   </React.StrictMode>
 );

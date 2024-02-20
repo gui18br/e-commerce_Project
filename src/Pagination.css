@@ -4,14 +4,14 @@
 }
 
 .pagination li + li {
-  margin-left: 1rem;
+  margin-left: 1.2rem;
 }
 
 .pagination__item {
   background-color: #dfb07a;
   border: none;
   color: #fff;
-  padding: 2px 8px;
+  padding: 5px;
   border-radius: 2px;
   margin-top: 0.2rem;
   cursor: pointer;

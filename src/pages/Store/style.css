@@ -47,3 +47,10 @@
   text-decoration: none;
   color: inherit;
 }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}

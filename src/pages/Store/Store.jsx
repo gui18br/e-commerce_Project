@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
-import {
-  getAllProducts,
-  getLimitProducts,
-} from "../../services/produto.service";
-import coupleMovingSofaImage from "../../assets/homem-e-mulher-encantados-positivamente-brincando-com-seu-cachorro-favorito-posam-no-sofa.jpg";
+import { getLimitProducts } from "../../services/produto.service";
+import casalMoveis from "../../assets/jovem-mulher-se-mudando-para-uma-nova-casa.jpg";
+import mulherCelular from "../../assets/mulher-escolhendo-telefone-na-loja-de-tecnologia.jpg";
+import mulherLivro from "../..//assets/jovem-mulher-a-sorrir-com-livro-perto-da-estante.jpg";
 import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
 import { useAuth } from "../../context/AuthContext.js";
 import Pagination from "../../Paginations.js";
 import "./style.css";
+import { useProduct } from "../../context/ProductContext.js";
 
 const LIMIT = 12;
 
 export const Store = () => {
   const { userEmail, tokenData } = useAuth();
+  const { product } = useProduct();
+
   const [data, setData] = useState([]);
   const [cart, setCart] = useState(
     tokenData && getItem(userEmail)
@@ -35,7 +37,7 @@ export const Store = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const products = await getLimitProducts(LIMIT, offset);
+        const products = await getLimitProducts(LIMIT, offset, product);
         setData(products);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
@@ -43,7 +45,7 @@ export const Store = () => {
     };
 
     fetchData();
-  }, [offset]);
+  }, [offset, product]);
 
   const handleClick = (obj) => {
     const element = cart.find((e) => e.id === obj.id);
@@ -67,9 +69,19 @@ export const Store = () => {
   };
 
   return (
-    <div>
+    <div className="box-store">
       <Header qtdItens={`${calcQuantity()}`} />
-      <img className="initial-image" src={coupleMovingSofaImage} alt="" />
+      <img
+        className="initial-image"
+        src={
+          product === "moveis"
+            ? casalMoveis
+            : product === "livros"
+            ? mulherLivro
+            : mulherCelular
+        }
+        alt=""
+      />
       <div className="carousel-itens">
         {data.map((e) => [
           <div className="card-item" key={e.id}>
@@ -92,6 +104,8 @@ export const Store = () => {
             </Button>
           </div>,
         ])}
+      </div>
+      <div className="pagination">
         <Pagination
           limit={LIMIT}
           total={1200}

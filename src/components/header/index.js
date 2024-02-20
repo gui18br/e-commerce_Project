@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.js";
-import "./style.css";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
+import { useProduct } from "../../context/ProductContext.js";
+import "./style.css";
 
 export function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +12,7 @@ export function Header(props) {
 
   const history = useHistory();
 
+  const { updateProduct } = useProduct();
   const { tokenData, updateTokenData } = useAuth();
 
   const handleCliclLogout = () => {
@@ -34,6 +36,10 @@ export function Header(props) {
     setIsMenuOpen(false);
   };
 
+  const handleClickStore = () => {
+    history.push("/");
+  };
+
   const handleClickCart = () => {
     history.push("/cart");
   };
@@ -48,7 +54,43 @@ export function Header(props) {
 
   return (
     <header>
-      <h1 className="shopName">Store</h1>
+      <h1 className="shopName" onClick={handleClickStore}>
+        Store
+      </h1>
+      <nav className="store-links">
+        <ul className={props.cartDisable ? "detailsLinks" : null}>
+          <li>
+            <button
+              onClick={() => {
+                updateProduct("livros");
+                handleClickStore();
+              }}
+            >
+              Livros
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                updateProduct("moveis");
+                handleClickStore();
+              }}
+            >
+              Móveis
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                updateProduct("celulares");
+                handleClickStore();
+              }}
+            >
+              Smartphones
+            </button>
+          </li>
+        </ul>
+      </nav>
       {tokenData ? (
         <>
           <div className="menu">

@@ -60,6 +60,15 @@
   margin-bottom: 0.5rem;
 }
 
+.quantity button {
+  background-color: #dfb07a;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 3px 7px;
+  cursor: pointer;
+}
+
 #quantidade {
   margin-left: 2rem;
 }

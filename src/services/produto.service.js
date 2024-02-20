@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getAllProducts = async () => {
-  const url = "https://api.mercadolibre.com/sites/MLB/search?q=moveis";
+export const getAllProducts = async (products) => {
+  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${products}`;
   try {
     const response = await axios.get(url);
     return response.data.results;
@@ -10,8 +10,8 @@ export const getAllProducts = async () => {
   }
 };
 
-export const getLimitProducts = async (limit, offset) => {
-  const url = `https://api.mercadolibre.com/sites/MLB/search?q=moveis&offset=${offset}&limit=${limit}`;
+export const getLimitProducts = async (limit, offset, products) => {
+  const url = `https://api.mercadolibre.com/sites/MLB/search?q=${products}&offset=${offset}&limit=${limit}`;
   try {
     const response = await axios.get(url);
     return response.data.results;
