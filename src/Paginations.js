@@ -1,5 +1,6 @@
 import React from "react";
 import "./Pagination.css";
+import { Button } from "./components/button";
 
 const MAX_ITEMS = 5;
 const MAX_LEFT = (MAX_ITEMS - 1) / 2;
@@ -16,19 +17,24 @@ const Pagination = ({ limit, total, offset, setOffset }) => {
   return (
     <ul className="pagination">
       <li>
-        <button
+        <Button
           onClick={() => onPageChange(current - 1)}
+          smallButton={true}
           disabled={current === 1}
         >
           Anterior
-        </button>
+        </Button>
       </li>
       {Array.from({ length: Math.min(MAX_ITEMS), pages })
         .map((_, index) => index + first)
         .map((page) => (
           <li key={page}>
             <button
-              className={page === current ? "pagination__item--active" : null}
+              className={
+                page === current
+                  ? "pagination__item--active"
+                  : "pagination__item"
+              }
               onClick={() => onPageChange(page)}
             >
               {page}
@@ -36,12 +42,13 @@ const Pagination = ({ limit, total, offset, setOffset }) => {
           </li>
         ))}
       <li>
-        <button
+        <Button
           onClick={() => onPageChange(current + 1)}
+          smallButton={true}
           disabled={current === pages}
         >
           Próximo
-        </button>
+        </Button>
       </li>
     </ul>
   );

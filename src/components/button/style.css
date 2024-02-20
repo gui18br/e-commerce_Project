@@ -9,6 +9,16 @@
   transition: background-color 0.3s ease;
 }
 
+.disabled {
+  height: 30px;
+  width: 140px;
+  background-color: gray;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
 .small-button {
   height: 30px;
   width: 140px;

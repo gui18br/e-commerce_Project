@@ -4,7 +4,14 @@ import "./style.css";
 export function Button(props) {
   return (
     <button
-      className={props.smallButton ? "small-button" : "button"}
+      className={
+        props.disabled
+          ? "disabled"
+          : props.smallButton
+          ? "small-button"
+          : "button"
+      }
+      disabled={props.disabled}
       onClick={props.onClick}
     >
       {props.children}
