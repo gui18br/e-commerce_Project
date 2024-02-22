@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
 import { Input } from "../../components/input/index.js";
-import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
+import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { sendPasswordResetEmail } from "firebase/auth";
@@ -44,7 +44,7 @@ export const ForgotPassword = () => {
     setLoading(true);
     const email = document.getElementById("email").value;
     try {
-      const response = await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(auth, email);
     } catch (error) {
       alert("Send email failed");
     } finally {
@@ -70,7 +70,7 @@ export const ForgotPassword = () => {
 
   return (
     <div className="box-auth-login">
-      <img className="imagem-login" src={pelaLoja} alt="" />
+      <img className="imagem-login" src={authImage} alt="" />
 
       <div className="forgot-auth-box">
         <div className="forgot-box">

@@ -6,7 +6,7 @@ import { Input } from "../../components/input/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
 import { useAuth } from "../../context/AuthContext.js";
-import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
+import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import * as yup from "yup";
@@ -19,8 +19,8 @@ const loginSchema = yup.object().shape({
     .required("O email é obrigatório"),
   password: yup
     .string()
-    .required("Digite a sua senha")
-    .min(6, "A senha deve ter pelo menos 6 caracteres"),
+    .min(6, "A senha deve ter pelo menos 6 caracteres")
+    .required("Digite a sua senha"),
 });
 
 export const Login = () => {
@@ -98,7 +98,7 @@ export const Login = () => {
 
   return (
     <div className="box-auth-login">
-      <img className="imagem-login" src={pelaLoja} alt="" />
+      <img className="imagem-login" src={authImage} alt="" />
 
       <div className="login-auth-box">
         <div className="login-box">

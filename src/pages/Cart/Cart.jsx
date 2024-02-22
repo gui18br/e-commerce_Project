@@ -4,16 +4,20 @@ import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.js";
 import { Header } from "../../components/header/index.js";
-import cart from "../../assets/14182.jpg";
+import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.js";
 import { Button } from "../../components/button/index.js";
 import { useAddress } from "../../context/AddressContext.js";
+import cart from "../../assets/14182.jpg";
 import * as yup from "yup";
 import "./style.css";
 
 const cepSchema = yup.object().shape({
-  cep: yup.string().required("Digite o seu CEP."),
+  cep: yup
+    .string()
+    .min(8, "Digite um CEP válido.")
+    .required("Digite o seu CEP."),
 });
 
 export const Cart = () => {
@@ -27,6 +31,26 @@ export const Cart = () => {
   const [endereco, setEndereco] = useState();
 
   const history = useHistory();
+
+  const [formValues, setFormValues] = useState({
+    cep: "",
+  });
+
+  const [errors, setErrors] = useState({
+    cep: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
+  };
 
   useEffect(() => {
     if (tokenData !== "" && getItem("userNotLogged")) {
@@ -101,6 +125,22 @@ export const Cart = () => {
       console.error("Erro ao pesquisar CEP: ", e);
     }
   };
+
+  const handleSubmit = () => {
+    cepSchema
+      .validate(formValues, { abortEarly: false })
+      .then(() => {
+        handleSearchCEP();
+      })
+      .catch((yupErrors) => {
+        yupErrors.inner.forEach((error) => {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            [error.path]: error.message,
+          }));
+        });
+      });
+  };
   return (
     <div className="container">
       <Header cartDisable={true} />
@@ -144,8 +184,23 @@ export const Cart = () => {
               <div className="input-endereco">
                 <h3>Entrega</h3>
                 <label htmlFor="cep">CEP: </label>
-                <input type="text" name="cep" id="cep" />
-                <Button onClick={handleSearchCEP} smallButton={true}>
+                <Input
+                  className="input"
+                  id="cep"
+                  name="cep"
+                  type="text"
+                  value={formValues.cep}
+                  error={!!errors.cep}
+                  helperText={errors.cep}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputChange}
+                />
+                {errors.cep && (
+                  <div className="error-message">
+                    <p>&#9888; {errors.cep}</p>
+                  </div>
+                )}
+                <Button onClick={handleSubmit} smallButton={true}>
                   Pesquisar
                 </Button>
               </div>

@@ -103,6 +103,15 @@
   margin-right: 3rem;
 }
 
+#cep {
+  width: 100px;
+  margin: 0;
+}
+
+.input-endereco .error-message {
+  margin: 0;
+}
+
 .dados-endereco {
   display: flex;
   flex-direction: column;

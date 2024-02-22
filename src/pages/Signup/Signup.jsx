@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
 import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
-import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
+import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useAuth } from "../../context/AuthContext.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -21,8 +21,8 @@ const signUpSchema = yup.object().shape({
   cpf: yup.string().required("O CPF é obrigatório"),
   password: yup
     .string()
-    .required("Digite a sua senha")
-    .min(6, "A senha deve ter pelo menos 6 caracteres"),
+    .min(6, "A senha deve ter pelo menos 6 caracteres")
+    .required("Digite a sua senha"),
   confirmPassword: yup
     .string()
     .min(6, "A senha deve ter pelo menos 6 caracteres")
@@ -112,7 +112,7 @@ export const Signup = () => {
 
   return (
     <div className="box-auth-login">
-      <img className="imagem-login" src={pelaLoja} alt="" />
+      <img className="imagem-login" src={authImage} alt="" />
 
       <div className="signup-auth-box">
         <div className="signup-box">
