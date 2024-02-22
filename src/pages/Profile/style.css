@@ -1,4 +1,19 @@
 .container-profile {
   display: flex;
+  align-items: center;
   flex-direction: column;
+  background-color: white;
+  padding-bottom: 14.5rem;
+}
+
+.container-profile img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+  background-color: gray;
+}
+
+.profile p {
+  margin: 0;
 }
