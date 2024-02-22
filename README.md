@@ -1,11 +1,15 @@
 <h1>
-    <img src="./src/assets/14182.jpg"/>
-    <p>E-commerce project for studing 👨‍💻</p>
+    <p align="center">
+    <img src="./src/assets/14182.jpg" width="250" height="200"  />
+        </p>
+    <p>E-commerce project for studying 👨‍💻</p>
 </h1>
 
 ## 🧑‍💻 Preview
 
-![GIF]("./src/assets/GIF_Project.gif")
+<p align="center">
+    <img src="./src/assets/GIF_Project.gif" alt="GIF" width="700" height="400"  />
+</p>
 
 ## 📖 About
 
