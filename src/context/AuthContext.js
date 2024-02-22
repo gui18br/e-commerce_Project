@@ -6,6 +6,11 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [tokenData, setTokenData] = useState(getItem("token") || "");
   const [userEmail, setUserEmail] = useState(getItem("userEmail") || "");
+  const [userCpf, setUserCpf] = useState(getItem("userCpf") || "");
+
+  const updateUserCpf = (newData) => {
+    setUserCpf(newData);
+  };
 
   const updateUserEmail = (newData) => {
     setUserEmail(newData);
@@ -22,7 +27,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ tokenData, updateTokenData, userEmail, updateUserEmail }}
+      value={{
+        tokenData,
+        updateTokenData,
+        userEmail,
+        updateUserEmail,
+        userCpf,
+        updateUserCpf,
+      }}
     >
       {children}
     </AuthContext.Provider>

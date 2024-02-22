@@ -7,9 +7,14 @@ import { Header } from "../../components/header/index.js";
 import cart from "../../assets/14182.jpg";
 import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.js";
-import "./style.css";
 import { Button } from "../../components/button/index.js";
 import { useAddress } from "../../context/AddressContext.js";
+import * as yup from "yup";
+import "./style.css";
+
+const cepSchema = yup.object().shape({
+  cep: yup.string().required("Digite o seu CEP."),
+});
 
 export const Cart = () => {
   const { updateAddressData } = useAddress();

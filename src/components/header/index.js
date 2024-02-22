@@ -4,16 +4,18 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.js";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
 import { useProduct } from "../../context/ProductContext.js";
+import { getItem } from "../../services/LocalStorageFuncs.js";
 import "./style.css";
 
 export function Header(props) {
+  const { tokenData, userCpf, updateTokenData } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userData, setUserData] = useState(JSON.parse(getItem(userCpf)) || "");
   const auth = FIREBASE_AUTH;
 
   const history = useHistory();
 
   const { updateProduct } = useProduct();
-  const { tokenData, updateTokenData } = useAuth();
 
   const handleCliclLogout = () => {
     auth
@@ -50,6 +52,10 @@ export function Header(props) {
 
   const handleClickSignup = () => {
     history.push("/cadastro");
+  };
+
+  const handleClickPRofile = () => {
+    history.push("/perfil");
   };
 
   return (
@@ -99,7 +105,7 @@ export function Header(props) {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <span className="trigger-word">Olá, fulano</span>
+              <span className="trigger-word">Olá, {userData.userName}</span>
               {isMenuOpen && (
                 <div className="overlay" onClick={handleMouseLeave}></div>
               )}
@@ -109,7 +115,7 @@ export function Header(props) {
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <button>Perfil</button>
+                  <button onClick={() => handleClickPRofile()}>Perfil</button>
                   <button onClick={() => handleCliclLogout()}>Sair</button>
                 </div>
               )}

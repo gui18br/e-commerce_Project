@@ -5,11 +5,12 @@ import { useHistory } from "react-router-dom";
 import pelaLoja from "../../assets/cliente-negra-irreconhecivel-escolhendo-moveis-no-shopping.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useAuth } from "../../context/AuthContext.js";
-import Box from "@mui/material/Box";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
 import * as yup from "yup";
+import Box from "@mui/material/Box";
 import "./style.css";
+import { setItem } from "../../services/LocalStorageFuncs.js";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("O nome é obrigatório"),
@@ -31,7 +32,7 @@ const signUpSchema = yup.object().shape({
 
 export const Signup = () => {
   const [loading, setLoading] = useState(false);
-  const { updateTokenData } = useAuth();
+  const { updateTokenData, updateUserCpf } = useAuth();
   const auth = FIREBASE_AUTH;
 
   const history = useHistory();
@@ -67,6 +68,8 @@ export const Signup = () => {
   const signUp = async () => {
     setLoading(true);
     const email = document.getElementById("email").value;
+    const name = document.getElementById("name").value;
+    const cpf = document.getElementById("cpf").value;
     const password = document.getElementById("password").value;
     try {
       const response = await createUserWithEmailAndPassword(
@@ -75,6 +78,14 @@ export const Signup = () => {
         password
       );
       updateTokenData(response.user.accessToken);
+      updateUserCpf(cpf);
+      const userData = {
+        userName: name,
+        userEmail: email,
+        userCPF: cpf,
+      };
+      setItem("userCpf", cpf);
+      setItem(cpf, JSON.stringify(userData));
       history.push("/");
     } catch (error) {
       alert("Signup failed", error.message);

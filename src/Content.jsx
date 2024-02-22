@@ -7,10 +7,12 @@ import { Login } from "./pages/Login/Login";
 import { Signup } from "./pages/Signup/Signup";
 import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";
 import { Payment } from "./pages/Payment/Payment";
+import { Profile } from "./pages/Profile/Profile";
 
 export const Content = () => {
   return (
     <Switch>
+      <Route exact path="/perfil" component={Profile} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/esqueci-senha" component={ForgotPassword} />
       <Route exact path="/cadastro" component={Signup} />
