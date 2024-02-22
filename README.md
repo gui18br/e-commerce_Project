@@ -26,3 +26,4 @@ The initial basis for this project was taken from the Youtube channel devGust: h
 - [ContextAPI](https://legacy.reactjs.org/docs/context.html)
 - [Yup](https://www.npmjs.com/package/yup)
 - [Axios](https://axios-http.com/docs/intro)
+- [Firebase](https://firebase.google.com/)
