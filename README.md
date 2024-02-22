@@ -15,6 +15,10 @@
 
 This project is aimed at the development of an e-commerce that features retail in general, such as books, furniture and smartphones. The project itself is intended to be **used for study, development and deepening** in the **React framework, JavaScrpit and TypeScript languages**, as well as **libraries such as Context Api and Redux**, and other technologies.
 
+The API is consumed at: https://api.mercadolibre.com/sites/MLB
+
+The initial basis for this project was taken from the Youtube channel devGust: https://www.youtube.com/watch?v=jVDopeb20FE&t=2646s
+
 ## 🔨 Tools
 
 - [JavaScript](https://devdocs.io/javascript/)
