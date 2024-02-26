@@ -224,7 +224,11 @@ export const Cart = () => {
               <p> - Frete: Grátis</p>
               <Button
                 onClick={() =>
-                  tokenData ? handleClickPayment() : history.push("/login")
+                  !errors.cep && endereco !== undefined
+                    ? tokenData
+                      ? handleClickPayment()
+                      : history.push("/login")
+                    : null
                 }
               >
                 Comprar
