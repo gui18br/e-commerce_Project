@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.js";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
 import { useProduct } from "../../context/ProductContext.js";
-import { getItem } from "../../services/LocalStorageFuncs.ts";
+import { getItem } from "../../services/LocalStorageFuncs.js";
 import "./style.css";
 
 export function Header(props) {

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
-import { setItem } from "../../services/LocalStorageFuncs.ts";
+import { setItem } from "../../services/LocalStorageFuncs.js";
 import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
