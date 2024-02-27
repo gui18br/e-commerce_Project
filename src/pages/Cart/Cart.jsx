@@ -8,7 +8,7 @@ import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.ts";
 import { Button } from "../../components/button/index.js";
-import { useAddress } from "../../context/AddressContext.js";
+import { useAddress } from "../../context/AddressContext.tsx";
 import cart from "../../assets/14182.jpg";
 import * as yup from "yup";
 import "./style.css";
