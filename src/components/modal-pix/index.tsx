@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import "./style.css";
-import qrCodeImg from "../../assets/qrcode.webp";
-import { Button } from "../button";
+import { Button } from "../button/";
 
-export function ModalPix(props) {
+interface ModalPixProps {
+  closeModal: () => void;
+}
+
+const qrCodeImg = require("../../assets/qrcode.webp");
+
+export function ModalPix(props: ModalPixProps) {
   const [qrCode, setQrCode] = useState(false);
 
   return (

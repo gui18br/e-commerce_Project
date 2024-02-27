@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
 
 interface AddresData {
-  endereco: string;
+  enderecoData: string;
 }
 
 interface AddressContextType {
-  endereco: AddresData | undefined;
+  enderecoData: AddresData | undefined;
   updateAddressData: (newData: AddresData) => void;
 }
 
@@ -18,14 +18,14 @@ interface AddressProviderProps {
 export const AddressProvider: React.FC<AddressProviderProps> = ({
   children,
 }) => {
-  const [endereco, setEndereco] = useState<AddresData | undefined>();
+  const [enderecoData, setEnderecoData] = useState<AddresData | undefined>();
 
   const updateAddressData = (newData: AddresData) => {
-    setEndereco(newData);
+    setEnderecoData(newData);
   };
 
   return (
-    <AddressContext.Provider value={{ endereco, updateAddressData }}>
+    <AddressContext.Provider value={{ enderecoData, updateAddressData }}>
       {children}
     </AddressContext.Provider>
   );
