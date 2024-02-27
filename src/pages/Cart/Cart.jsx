@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.js";
+import { useAuth } from "../../context/AuthContext.tsx";
 import { Header } from "../../components/header/index.js";
 import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
@@ -117,7 +117,7 @@ export const Cart = () => {
       const resultado = await searchCep(cepDigitado);
       if (resultado.cidade !== "") {
         setEndereco(resultado);
-        updateAddressData(resultado);
+        updateAddressData({ endereco: resultado });
       } else {
         alert("Informe um CEP correto!");
       }

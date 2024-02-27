@@ -1,10 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 interface AddresData {
-  cidade: string;
-  bairro: string;
   endereco: string;
-  uf: string;
 }
 
 interface AddressContextType {

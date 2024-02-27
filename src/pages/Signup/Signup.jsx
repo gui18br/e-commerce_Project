@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
 import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.js";
+import { useAuth } from "../../context/AuthContext.tsx";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
 import { setItem } from "../../services/LocalStorageFuncs.js";
@@ -77,8 +77,8 @@ export const Signup = () => {
         email,
         password
       );
-      updateTokenData(response.user.accessToken);
-      updateUserCpf(cpf);
+      updateTokenData({ tokenData: response.user.accessToken });
+      updateUserCpf({ userCpf: cpf });
       const userData = {
         userName: name,
         userEmail: email,
