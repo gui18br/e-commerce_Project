@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.tsx";
-import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
-import { useProduct } from "../../context/ProductContext.tsx";
+import { useAuth } from "../../context/AuthContext";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
+import { useProduct } from "../../context/ProductContext";
 import { getItem } from "../../services/LocalStorageFuncs.js";
 import "./style.css";
 
-export function Header(props) {
+interface HeaderProps {
+  cartDisable?: boolean;
+  qtdItens: number;
+}
+
+export function Header(props: HeaderProps) {
   const { tokenData, userCpf, updateTokenData } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userData, setUserData] = useState(JSON.parse(getItem(userCpf)) || "");
@@ -21,7 +26,7 @@ export function Header(props) {
     auth
       .signOut()
       .then(() => {
-        updateTokenData("");
+        updateTokenData({ tokenData: undefined });
         localStorage.removeItem("token");
         history.push("/login");
       })
@@ -64,7 +69,7 @@ export function Header(props) {
         Store
       </h1>
       <nav className="store-links">
-        <ul className={props.cartDisable ? "detailsLinks" : null}>
+        <ul className={props.cartDisable ? "detailsLinks" : undefined}>
           <li>
             <button
               onClick={() => {

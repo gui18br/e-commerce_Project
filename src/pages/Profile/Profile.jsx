@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.tsx";
 import { getItem } from "../../services/LocalStorageFuncs.js";
-import { Header } from "../../components/header/index.js";
+import { Header } from "../../components/header/index.tsx";
 import "./style.css";
 
 export const Profile = () => {

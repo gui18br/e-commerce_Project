@@ -3,8 +3,8 @@ import { getItem, setItem } from "../services/LocalStorageFuncs";
 
 interface AuthData {
   tokenData?: string;
-  userEmail: string;
-  userCpf: string;
+  userEmail?: string;
+  userCpf?: string;
 }
 
 interface AuthContextType {

@@ -3,11 +3,11 @@ import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { getAllProducts } from "../../services/produto.service";
-import { Header } from "../../components/header/index.js";
+import { Header } from "../../components/header/index.tsx";
 import { Button } from "../../components/button/index.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
-import CircularProgress from "@mui/material/CircularProgress";
 import { useProduct } from "../../context/ProductContext.tsx";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import "./style.css";
 

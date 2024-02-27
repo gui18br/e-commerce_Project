@@ -3,7 +3,7 @@ import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.tsx";
-import { Header } from "../../components/header/index.js";
+import { Header } from "../../components/header/index.tsx";
 import { Input } from "../../components/input/index.tsx";
 import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.ts";

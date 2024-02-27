@@ -3,15 +3,15 @@ import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
 import { getLimitProducts } from "../../services/produto.service";
-import casalMoveis from "../../assets/jovem-mulher-se-mudando-para-uma-nova-casa.jpg";
-import mulherCelular from "../../assets/mulher-escolhendo-telefone-na-loja-de-tecnologia.jpg";
-import mulherLivro from "../..//assets/jovem-mulher-a-sorrir-com-livro-perto-da-estante.jpg";
-import { Header } from "../../components/header/index.js";
+import { Header } from "../../components/header/index.tsx";
 import { Button } from "../../components/button/index.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
+import { useProduct } from "../../context/ProductContext.tsx";
+import mulherCelular from "../../assets/mulher-escolhendo-telefone-na-loja-de-tecnologia.jpg";
+import mulherLivro from "../..//assets/jovem-mulher-a-sorrir-com-livro-perto-da-estante.jpg";
+import casalMoveis from "../../assets/jovem-mulher-se-mudando-para-uma-nova-casa.jpg";
 import Pagination from "../../Paginations.tsx";
 import "./style.css";
-import { useProduct } from "../../context/ProductContext.tsx";
 
 const LIMIT = 12;
 
