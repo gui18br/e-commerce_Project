@@ -21,6 +21,7 @@ The initial basis for this project was taken from the Youtube channel devGust: h
 
 ## 🔨 Tools
 
+- [TypeScript](https://www.typescriptlang.org/docs/)
 - [JavaScript](https://devdocs.io/javascript/)
 - [React](https://react.dev/)
 - [ContextAPI](https://legacy.reactjs.org/docs/context.html)
