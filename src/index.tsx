@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 import { AddressProvider } from "./context/AddressContext";
 import { ProductProvider } from "./context/ProductContext";
+import "./index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,11 +15,9 @@ root.render(
     <ProductProvider>
       <AddressProvider>
         <AuthProvider>
-          <CartProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </CartProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </AuthProvider>
       </AddressProvider>
     </ProductProvider>
