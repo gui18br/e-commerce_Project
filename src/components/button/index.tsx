@@ -4,7 +4,7 @@ import "./style.css";
 interface ButtonProps {
   disabled?: boolean;
   smallButton?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
 }
 

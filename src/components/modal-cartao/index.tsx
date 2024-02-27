@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "./style.css";
-import { Button } from "../button";
+import { Button } from "../button/index";
 
-export function ModalCartao(props) {
+interface ModalCartaoProps {
+  closeModal: () => void;
+}
+
+export function ModalCartao(props: ModalCartaoProps) {
   return (
     <div className="modal">
       <div className="modal-content">
