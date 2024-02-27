@@ -7,7 +7,7 @@ import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
 import { useAuth } from "../../context/AuthContext.tsx";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useProduct } from "../../context/ProductContext.js";
+import { useProduct } from "../../context/ProductContext.tsx";
 import Box from "@mui/material/Box";
 import "./style.css";
 

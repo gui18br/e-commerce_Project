@@ -11,7 +11,7 @@ import { Button } from "../../components/button/index.js";
 import { useAuth } from "../../context/AuthContext.tsx";
 import Pagination from "../../Paginations.tsx";
 import "./style.css";
-import { useProduct } from "../../context/ProductContext.js";
+import { useProduct } from "../../context/ProductContext.tsx";
 
 const LIMIT = 12;
 

@@ -3,7 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.tsx";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
-import { useProduct } from "../../context/ProductContext.js";
+import { useProduct } from "../../context/ProductContext.tsx";
 import { getItem } from "../../services/LocalStorageFuncs.js";
 import "./style.css";
 
@@ -68,7 +68,7 @@ export function Header(props) {
           <li>
             <button
               onClick={() => {
-                updateProduct("livros");
+                updateProduct({ product: "livros" });
                 handleClickStore();
               }}
             >
@@ -78,7 +78,7 @@ export function Header(props) {
           <li>
             <button
               onClick={() => {
-                updateProduct("moveis");
+                updateProduct({ product: "moveis" });
                 handleClickStore();
               }}
             >
@@ -88,7 +88,7 @@ export function Header(props) {
           <li>
             <button
               onClick={() => {
-                updateProduct("celulares");
+                updateProduct({ product: "celulares" });
                 handleClickStore();
               }}
             >
