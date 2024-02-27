@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Store } from "./pages/Store/Store";
 import { Cart } from "./pages/Cart/Cart";
-import { ItemDetail } from "./pages/ItemDetail/ItemDetail"; // Importe o componente para exibir detalhes do item
+import { ItemDetail } from "./pages/ItemDetail/ItemDetail";
 import { Login } from "./pages/Login/Login";
 import { Signup } from "./pages/Signup/Signup";
 import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";

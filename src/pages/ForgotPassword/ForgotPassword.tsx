@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Button } from "../../components/button/index.tsx";
-import { Input } from "../../components/input/index.tsx";
+import { Button } from "../../components/button/index";
+import { Input } from "../../components/input/index";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import CircularProgress from "@mui/material/CircularProgress";
-import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import Box from "@mui/material/Box";
 import * as yup from "yup";
 import "./style.css";
+
+const authImage = require("../../assets/designers-de-cenario-no-trabalho.jpg");
 
 const forgotSchema = yup.object().shape({
   email: yup
@@ -28,7 +29,7 @@ export const ForgotPassword = () => {
     email: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -40,9 +41,15 @@ export const ForgotPassword = () => {
     });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   const sendEmail = async () => {
     setLoading(true);
-    const email = document.getElementById("email").value;
+    const email = (document.getElementById("email") as HTMLInputElement).value;
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
@@ -59,7 +66,7 @@ export const ForgotPassword = () => {
         sendEmail();
       })
       .catch((yupErrors) => {
-        yupErrors.inner.forEach((error) => {
+        yupErrors.inner.forEach((error: any) => {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [error.path]: error.message,
@@ -93,9 +100,8 @@ export const ForgotPassword = () => {
                   type="email"
                   value={formValues.email}
                   error={!!errors.email}
-                  helperText={errors.email}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
               {errors.email && (
