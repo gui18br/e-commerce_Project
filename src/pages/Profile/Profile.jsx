@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.js";
-import { getItem } from "../../services/LocalStorageFuncs.js";
-import "./style.css";
+import { getItem } from "../../services/LocalStorageFuncs.ts";
 import { Header } from "../../components/header/index.js";
+import "./style.css";
 
 export const Profile = () => {
   const { userCpf, userEmail, tokenData } = useAuth();

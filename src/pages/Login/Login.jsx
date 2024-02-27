@@ -4,7 +4,7 @@ import { Button } from "../../components/button/index.js";
 import { useHistory } from "react-router-dom";
 import { Input } from "../../components/input/index.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
+import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
 import { useAuth } from "../../context/AuthContext.js";
 import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";

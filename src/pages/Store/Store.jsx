@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import mulherLivro from "../..//assets/jovem-mulher-a-sorrir-com-livro-perto-da-
 import { Header } from "../../components/header/index.js";
 import { Button } from "../../components/button/index.js";
 import { useAuth } from "../../context/AuthContext.js";
-import Pagination from "../../Paginations.js";
+import Pagination from "../../Paginations.tsx";
 import "./style.css";
 import { useProduct } from "../../context/ProductContext.js";
 

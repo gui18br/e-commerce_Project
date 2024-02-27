@@ -8,7 +8,9 @@ import { AuthProvider } from "./context/AuthContext";
 import { AddressProvider } from "./context/AddressContext";
 import { ProductProvider } from "./context/ProductContext";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(
   <React.StrictMode>
     <ProductProvider>

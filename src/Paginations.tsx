@@ -2,16 +2,23 @@ import React from "react";
 import "./Pagination.css";
 import { Button } from "./components/button";
 
+interface PaginationProps {
+  limit: number;
+  total: number;
+  offset: number;
+  setOffset: (offset: number) => void;
+}
+
 const MAX_ITEMS = 5;
 const MAX_LEFT = (MAX_ITEMS - 1) / 2;
 
-const Pagination = ({ limit, total, offset, setOffset }) => {
-  const current = offset ? offset / limit + 1 : 1;
-  const pages = Math.ceil(total / limit);
+const Pagination = (props: PaginationProps) => {
+  const current = props.offset ? props.offset / props.limit + 1 : 1;
+  const pages = Math.ceil(props.total / props.limit);
   const first = Math.max(current - MAX_LEFT, 1);
 
-  function onPageChange(page) {
-    setOffset((page - 1) * limit);
+  function onPageChange(page: number) {
+    props.setOffset((page - 1) * props.limit);
   }
 
   return (
@@ -25,7 +32,7 @@ const Pagination = ({ limit, total, offset, setOffset }) => {
           Anterior
         </Button>
       </li>
-      {Array.from({ length: Math.min(MAX_ITEMS), pages })
+      {[...Array(Math.min(MAX_ITEMS, pages))]
         .map((_, index) => index + first)
         .map((page) => (
           <li key={page}>

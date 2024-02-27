@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
 import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
-import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
-import CircularProgress from "@mui/material/CircularProgress";
 import { useAuth } from "../../context/AuthContext.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
-import * as yup from "yup";
+import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
+import { setItem } from "../../services/LocalStorageFuncs.ts";
+import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import * as yup from "yup";
 import "./style.css";
-import { setItem } from "../../services/LocalStorageFuncs.js";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("O nome é obrigatório"),

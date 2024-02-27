@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext.js";
 import { Header } from "../../components/header/index.js";
 import { Input } from "../../components/input/index.js";
 import { useHistory } from "react-router-dom";
-import { searchCep } from "../../services/cep.service.js";
+import { searchCep } from "../../services/cep.service.ts";
 import { Button } from "../../components/button/index.js";
 import { useAddress } from "../../context/AddressContext.js";
 import cart from "../../assets/14182.jpg";

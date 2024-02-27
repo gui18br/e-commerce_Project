@@ -5,7 +5,7 @@ import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../FirebaseConfig.js";
+import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
 import * as yup from "yup";
 import "./style.css";
 
