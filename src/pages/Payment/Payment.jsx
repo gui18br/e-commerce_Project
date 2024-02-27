@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "./style.css";
-import pix from "../../assets/logo-pix-icone-1024.png";
-import cartao from "../../assets/png-transparent-credit-card-icon-money-credit-card-finance-credit-card-icon-shopping-bank-buy.png";
-import boleto from "../../assets/boleto-simbolo.png";
 import { useAddress } from "../../context/AddressContext";
-import { Button } from "../../components/button/index.js";
+import { Button } from "../../components/button/index.tsx";
 import { ModalPix } from "../../components/modal-pix/index.js";
 import { ModalCartao } from "../../components/modal-cartao/index.js";
+import pix from "../../assets/logo-pix-icone-1024.png";
+import boleto from "../../assets/boleto-simbolo.png";
+import cartao from "../../assets/png-transparent-credit-card-icon-money-credit-card-finance-credit-card-icon-shopping-bank-buy.png";
+import "./style.css";
 
 export const Payment = () => {
   const { endereco } = useAddress();

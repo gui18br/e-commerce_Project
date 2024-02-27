@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { setItem } from "../../services/LocalStorageFuncs";
-import { Button } from "../../components/button/index.js";
+import { Button } from "../../components/button/index.tsx";
 import { useHistory } from "react-router-dom";
 import { Input } from "../../components/input/index.tsx";
 import { signInWithEmailAndPassword } from "firebase/auth";

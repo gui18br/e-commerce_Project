@@ -7,7 +7,7 @@ import { Header } from "../../components/header/index.js";
 import { Input } from "../../components/input/index.tsx";
 import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.ts";
-import { Button } from "../../components/button/index.js";
+import { Button } from "../../components/button/index.tsx";
 import { useAddress } from "../../context/AddressContext.tsx";
 import cart from "../../assets/14182.jpg";
 import * as yup from "yup";

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { getAllProducts } from "../../services/produto.service";
 import { Header } from "../../components/header/index.js";
-import { Button } from "../../components/button/index.js";
+import { Button } from "../../components/button/index.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useProduct } from "../../context/ProductContext.tsx";

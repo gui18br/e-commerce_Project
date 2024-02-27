@@ -1,7 +1,14 @@
 import React from "react";
 import "./style.css";
 
-export function Button(props) {
+interface ButtonProps {
+  disabled?: boolean;
+  smallButton?: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+export function Button(props: ButtonProps) {
   return (
     <button
       className={

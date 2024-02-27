@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Button } from "../../components/button/index.js";
+import { Button } from "../../components/button/index.tsx";
 import { Input } from "../../components/input/index.tsx";
-import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
+import CircularProgress from "@mui/material/CircularProgress";
+import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
+import Box from "@mui/material/Box";
 import * as yup from "yup";
 import "./style.css";
 

@@ -7,7 +7,7 @@ import casalMoveis from "../../assets/jovem-mulher-se-mudando-para-uma-nova-casa
 import mulherCelular from "../../assets/mulher-escolhendo-telefone-na-loja-de-tecnologia.jpg";
 import mulherLivro from "../..//assets/jovem-mulher-a-sorrir-com-livro-perto-da-estante.jpg";
 import { Header } from "../../components/header/index.js";
-import { Button } from "../../components/button/index.js";
+import { Button } from "../../components/button/index.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
 import Pagination from "../../Paginations.tsx";
 import "./style.css";
