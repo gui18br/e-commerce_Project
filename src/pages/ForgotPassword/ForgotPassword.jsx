@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
-import { Input } from "../../components/input/index.js";
+import { Input } from "../../components/input/index.tsx";
 import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";

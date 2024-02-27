@@ -4,7 +4,7 @@ import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.tsx";
 import { Header } from "../../components/header/index.js";
-import { Input } from "../../components/input/index.js";
+import { Input } from "../../components/input/index.tsx";
 import { useHistory } from "react-router-dom";
 import { searchCep } from "../../services/cep.service.ts";
 import { Button } from "../../components/button/index.js";

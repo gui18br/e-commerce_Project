@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { setItem } from "../../services/LocalStorageFuncs";
 import { Button } from "../../components/button/index.js";
 import { useHistory } from "react-router-dom";
-import { Input } from "../../components/input/index.js";
+import { Input } from "../../components/input/index.tsx";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
 import { useAuth } from "../../context/AuthContext.tsx";

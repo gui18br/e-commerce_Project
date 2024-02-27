@@ -1,7 +1,18 @@
 import React from "react";
 import "./style.css";
 
-export function Input(props) {
+interface IndexProps {
+  className: string;
+  error: boolean;
+  id: string;
+  name: string;
+  type: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+export function Input(props: IndexProps) {
   return (
     <div>
       <input

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../components/button/index.js";
-import { Input } from "../../components/input/index.js";
+import { Input } from "../../components/input/index.tsx";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.tsx";
 import { createUserWithEmailAndPassword } from "firebase/auth";
