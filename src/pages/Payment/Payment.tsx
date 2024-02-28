@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useAddress } from "../../context/AddressContext";
-import { Button } from "../../components/button/index.tsx";
-import { ModalPix } from "../../components/modal-pix/index.tsx";
-import { ModalCartao } from "../../components/modal-cartao/index.tsx";
-import pix from "../../assets/logo-pix-icone-1024.png";
-import boleto from "../../assets/boleto-simbolo.png";
-import cartao from "../../assets/png-transparent-credit-card-icon-money-credit-card-finance-credit-card-icon-shopping-bank-buy.png";
+import { Button } from "../../components/button";
+import { ModalPix } from "../../components/modal-pix";
+import { ModalCartao } from "../../components/modal-cartao";
 import "./style.css";
+
+const pix = require("../../assets/logo-pix-icone-1024.png");
+const boleto = require("../../assets/boleto-simbolo.png");
+const cartao = require("../../assets/png-transparent-credit-card-icon-money-credit-card-finance-credit-card-icon-shopping-bank-buy.png");
 
 export const Payment = () => {
   const { enderecoData } = useAddress();
-  const [botaoSelecionado, setBotaoSelecionado] = useState(null);
+  const [botaoSelecionado, setBotaoSelecionado] = useState(0);
   const [isModalOpenPix, setIsModalOpenPix] = useState(false);
   const [isModalOpenCartao, setIsModalOpenCartao] = useState(false);
-  const [isModalOpenBoleto, setIsModalOpenBoleto] = useState(false);
 
   const handleOpenModalPix = () => {
     setIsModalOpenPix(true);
@@ -31,14 +31,6 @@ export const Payment = () => {
     setIsModalOpenCartao(false);
   };
 
-  const handleOpenModalBoleto = () => {
-    setIsModalOpenBoleto(true);
-  };
-
-  const handleCloseModalBoleto = () => {
-    setIsModalOpenBoleto(false);
-  };
-
   return (
     <div className="payment-screen">
       <h1>Pagamento</h1>
@@ -46,10 +38,10 @@ export const Payment = () => {
       <div className="payment-endereco">
         <h3>Endereço de entrega</h3>
         <div>
-          <p>Cidade: {enderecoData.endereco.cidade || ""}</p>
-          <p>Bairro: {enderecoData.endereco.bairro || ""}</p>
-          <p>Endereço: {enderecoData.endereco.endereco || ""}</p>
-          <p>UF: {enderecoData.endereco.uf || ""}</p>
+          <p>Cidade: {enderecoData?.endereco.cidade || ""}</p>
+          <p>Bairro: {enderecoData?.endereco.bairro || ""}</p>
+          <p>Endereço: {enderecoData?.endereco.endereco || ""}</p>
+          <p>UF: {enderecoData?.endereco.uf || ""}</p>
         </div>
       </div>
 
