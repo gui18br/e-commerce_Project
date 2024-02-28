@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext.tsx";
+import { useAuth } from "../../context/AuthContext";
 import { getItem } from "../../services/LocalStorageFuncs.js";
-import { Header } from "../../components/header/index.tsx";
+import { Header } from "../../components/header/index";
 import "./style.css";
 
 export const Profile = () => {
@@ -23,7 +23,7 @@ export const Profile = () => {
 
   return (
     <div className="container-profile">
-      <Header qtdItens={`${calcQuantity()}`} />
+      <Header qtdItens={calcQuantity()} />
       <div className="profile">
         <h2>Profile</h2>
         <img src="" alt="" />
