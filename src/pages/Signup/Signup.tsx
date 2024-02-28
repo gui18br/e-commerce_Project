@@ -1,16 +1,25 @@
 import React, { useState } from "react";
-import { Button } from "../../components/button/index.tsx";
-import { Input } from "../../components/input/index.tsx";
+import { Button } from "../../components/button/index";
+import { Input } from "../../components/input/index";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.tsx";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
+import { useAuth } from "../../context/AuthContext";
+import { UserCredential, createUserWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { setItem } from "../../services/LocalStorageFuncs.js";
-import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import * as yup from "yup";
 import "./style.css";
+
+interface FormValues {
+  name: string;
+  email: string;
+  cpf: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const authImage = require("../../assets/designers-de-cenario-no-trabalho.jpg");
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("O nome é obrigatório"),
@@ -31,13 +40,13 @@ const signUpSchema = yup.object().shape({
 });
 
 export const Signup = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const { updateTokenData, updateUserCpf } = useAuth();
   const auth = FIREBASE_AUTH;
 
   const history = useHistory();
 
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<FormValues>({
     name: "",
     email: "",
     cpf: "",
@@ -45,7 +54,7 @@ export const Signup = () => {
     confirmPassword: "",
   });
 
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormValues>({
     name: "",
     email: "",
     cpf: "",
@@ -53,7 +62,7 @@ export const Signup = () => {
     confirmPassword: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -65,19 +74,26 @@ export const Signup = () => {
     });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   const signUp = async () => {
     setLoading(true);
-    const email = document.getElementById("email").value;
-    const name = document.getElementById("name").value;
-    const cpf = document.getElementById("cpf").value;
-    const password = document.getElementById("password").value;
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const name = (document.getElementById("name") as HTMLInputElement).value;
+    const cpf = (document.getElementById("cpf") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
     try {
-      const response = await createUserWithEmailAndPassword(
+      const response: UserCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      updateTokenData({ tokenData: response.user.accessToken });
+      updateTokenData({ tokenData: response.user.refreshToken });
       updateUserCpf({ userCpf: cpf });
       const userData = {
         userName: name,
@@ -88,7 +104,7 @@ export const Signup = () => {
       setItem(cpf, JSON.stringify(userData));
       history.push("/");
     } catch (error) {
-      alert("Signup failed", error.message);
+      alert("Signup failed" + error);
     } finally {
       setLoading(false);
     }
@@ -101,7 +117,7 @@ export const Signup = () => {
         signUp();
       })
       .catch((yupErrors) => {
-        yupErrors.inner.forEach((error) => {
+        yupErrors.inner.forEach((error: any) => {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [error.path]: error.message,
@@ -134,9 +150,8 @@ export const Signup = () => {
                   type="name"
                   value={formValues.name}
                   error={!!errors.name}
-                  helperText={errors.name}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <label htmlFor="">Email</label>
                 <Input
@@ -146,9 +161,8 @@ export const Signup = () => {
                   type="email"
                   value={formValues.email}
                   error={!!errors.email}
-                  helperText={errors.email}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <label htmlFor="">CPF</label>
                 <Input
@@ -158,9 +172,8 @@ export const Signup = () => {
                   type="cpf"
                   value={formValues.cpf}
                   error={!!errors.cpf}
-                  helperText={errors.cpf}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <label htmlFor="">Senha</label>
                 <Input
@@ -170,9 +183,8 @@ export const Signup = () => {
                   type="password"
                   value={formValues.password}
                   error={!!errors.password}
-                  helperText={errors.password}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <label htmlFor="">Repetir Senha</label>
                 <Input
@@ -182,9 +194,8 @@ export const Signup = () => {
                   type="password"
                   value={formValues.confirmPassword}
                   error={!!errors.confirmPassword}
-                  helperText={errors.confirmPassword}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
               {(errors.name ||
