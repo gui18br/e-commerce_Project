@@ -40,7 +40,10 @@ export const ItemDetail: React.FC = () => {
 
   useEffect(() => {
     if (tokenData !== "" && getItem("userNotLogged")) {
-      const combinedCart = [...getItem("userNotLogged"), ...getItem(userEmail)];
+      const combinedCart: ItemData[] = [
+        ...getItem("userNotLogged"),
+        ...getItem(userEmail),
+      ];
       setCart(combinedCart);
     }
   }, [tokenData, userEmail]);
@@ -74,20 +77,20 @@ export const ItemDetail: React.FC = () => {
   }
 
   const handleClick = (obj: ItemData) => {
-    const element = cart.find((e) => e.id === obj.id);
+    const element: ItemData | undefined = cart.find((e) => e.id === obj.id);
     if (element) {
       const arrFilter = cart.filter((e) => e.id !== obj.id);
       setCart(arrFilter);
       setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
     } else {
-      const newItem = { ...obj, quantity: 1 };
+      const newItem: ItemData = { ...obj, quantity: 1 };
       setCart([...cart, newItem]);
       setItem(tokenData ? userEmail : "userNotLogged", [...cart, newItem]);
     }
   };
 
   const calcQuantity = () => {
-    let quantidade = 0;
+    let quantidade: number = 0;
     for (var i = 0; i < cart.length; i++) {
       quantidade += cart[i].quantity;
     }

@@ -3,15 +3,25 @@ import { BsFillCartCheckFill, BsFillCartPlusFill } from "react-icons/bs";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Link } from "react-router-dom";
 import { getLimitProducts } from "../../services/produto.service";
-import { Header } from "../../components/header/index.tsx";
-import { Button } from "../../components/button/index.tsx";
-import { useAuth } from "../../context/AuthContext.tsx";
-import { useProduct } from "../../context/ProductContext.tsx";
-import mulherCelular from "../../assets/mulher-escolhendo-telefone-na-loja-de-tecnologia.jpg";
-import mulherLivro from "../..//assets/jovem-mulher-a-sorrir-com-livro-perto-da-estante.jpg";
-import casalMoveis from "../../assets/jovem-mulher-se-mudando-para-uma-nova-casa.jpg";
-import Pagination from "../../Paginations.tsx";
+import { Header } from "../../components/header";
+import { Button } from "../../components/button";
+import { useAuth } from "../../context/AuthContext";
+import { useProduct } from "../../context/ProductContext";
+import Pagination from "../../Paginations";
 import "./style.css";
+
+interface ItemData {
+  id: string;
+  title: string;
+  thumbnail: string;
+  original_price?: number;
+  price: number;
+  quantity: number;
+}
+
+const mulherCelular = require("../../assets/mulher-escolhendo-telefone-na-loja-de-tecnologia.jpg");
+const mulherLivro = require("../../assets/jovem-mulher-a-sorrir-com-livro-perto-da-estante.jpg");
+const casalMoveis = require("../../assets/jovem-mulher-se-mudando-para-uma-nova-casa.jpg");
 
 const LIMIT = 12;
 
@@ -19,17 +29,20 @@ export const Store = () => {
   const { userEmail, tokenData } = useAuth();
   const { product } = useProduct();
 
-  const [data, setData] = useState([]);
-  const [cart, setCart] = useState(
+  const [data, setData] = useState<ItemData[]>([]);
+  const [cart, setCart] = useState<ItemData[]>(
     tokenData && getItem(userEmail)
       ? getItem(userEmail)
       : getItem("userNotLogged") || []
   );
-  const [offset, setOffSet] = useState(0);
+  const [offset, setOffSet] = useState<number>(0);
 
   useEffect(() => {
     if (tokenData !== "" && getItem("userNotLogged")) {
-      const combinedCart = [...getItem("userNotLogged"), ...getItem(userEmail)];
+      const combinedCart: ItemData[] = [
+        ...getItem("userNotLogged"),
+        ...getItem(userEmail),
+      ];
       setCart(combinedCart);
     }
   }, [tokenData, userEmail]);
@@ -47,21 +60,21 @@ export const Store = () => {
     fetchData();
   }, [offset, product]);
 
-  const handleClick = (obj) => {
-    const element = cart.find((e) => e.id === obj.id);
+  const handleClick = (obj: ItemData) => {
+    const element: ItemData | undefined = cart.find((e) => e.id === obj.id);
     if (element) {
       const arrFilter = cart.filter((e) => e.id !== obj.id);
       setCart(arrFilter);
       setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
     } else {
-      const newItem = { ...obj, quantity: 1 };
+      const newItem: ItemData = { ...obj, quantity: 1 };
       setCart([...cart, newItem]);
       setItem(tokenData ? userEmail : "userNotLogged", [...cart, newItem]);
     }
   };
 
   const calcQuantity = () => {
-    let quantidade = 0;
+    let quantidade: number = 0;
     for (var i = 0; i < cart.length; i++) {
       quantidade += cart[i].quantity;
     }
@@ -70,7 +83,7 @@ export const Store = () => {
 
   return (
     <div className="box-store">
-      <Header qtdItens={`${calcQuantity()}`} />
+      <Header qtdItens={calcQuantity()} />
       <img
         className="initial-image"
         src={
