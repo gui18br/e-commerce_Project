@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { setItem } from "../../services/LocalStorageFuncs";
-import { Button } from "../../components/button/index.tsx";
+import { Button } from "../../components/button";
 import { useHistory } from "react-router-dom";
-import { Input } from "../../components/input/index.tsx";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../FirebaseConfig.ts";
-import { useAuth } from "../../context/AuthContext.tsx";
-import authImage from "../../assets/designers-de-cenario-no-trabalho.jpg";
+import { Input } from "../../components/input";
+import { UserCredential, signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
+import { useAuth } from "../../context/AuthContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import * as yup from "yup";
 import "./style.css";
+
+interface FormValues {
+  email: string;
+  password: string;
+}
+
+const authImage = require("../../assets/designers-de-cenario-no-trabalho.jpg");
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -24,23 +30,23 @@ const loginSchema = yup.object().shape({
 });
 
 export const Login = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const auth = FIREBASE_AUTH;
   const history = useHistory();
 
   const { updateTokenData, updateUserEmail } = useAuth();
 
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<FormValues>({
     email: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormValues>({
     email: "",
     password: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -52,21 +58,34 @@ export const Login = () => {
     });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   const login = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email: string = (document.getElementById("email") as HTMLInputElement)
+      .value;
+    const password: string = (
+      document.getElementById("password") as HTMLInputElement
+    ).value;
     setLoading(true);
     try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
-      const emailFirebase = response.user.email;
-      const accessToken = response.user.accessToken;
+      const response: UserCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const emailFirebase: string = response.user.email ?? "";
+      const accessToken: string = response.user.refreshToken;
       setItem("userEmail", emailFirebase);
       setItem("token", accessToken);
       updateUserEmail({ userEmail: emailFirebase });
       updateTokenData({ tokenData: accessToken });
       history.push("/");
     } catch (error) {
-      alert("Falha ao logar", error);
+      alert("Falha ao logar: " + error);
     } finally {
       setLoading(false);
     }
@@ -79,7 +98,7 @@ export const Login = () => {
         login();
       })
       .catch((yupErrors) => {
-        yupErrors.inner.forEach((error) => {
+        yupErrors.inner.forEach((error: any) => {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [error.path]: error.message,
@@ -120,9 +139,8 @@ export const Login = () => {
                   type="email"
                   value={formValues.email}
                   error={!!errors.email}
-                  helperText={errors.email}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <label htmlFor="">Senha</label>
                 <Input
@@ -132,9 +150,8 @@ export const Login = () => {
                   type="password"
                   value={formValues.password}
                   error={!!errors.password}
-                  helperText={errors.password}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
               {(errors.email || errors.password) && (

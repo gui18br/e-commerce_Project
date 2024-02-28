@@ -8,6 +8,10 @@ import Box from "@mui/material/Box";
 import * as yup from "yup";
 import "./style.css";
 
+interface FormValues {
+  email: string;
+}
+
 const authImage = require("../../assets/designers-de-cenario-no-trabalho.jpg");
 
 const forgotSchema = yup.object().shape({
@@ -21,11 +25,11 @@ export const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;
 
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<FormValues>({
     email: "",
   });
 
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormValues>({
     email: "",
   });
 
@@ -49,7 +53,8 @@ export const ForgotPassword = () => {
 
   const sendEmail = async () => {
     setLoading(true);
-    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const email: string = (document.getElementById("email") as HTMLInputElement)
+      .value;
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
