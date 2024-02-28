@@ -2,16 +2,36 @@ import { useState, useEffect } from "react";
 import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { BsFillCartDashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.tsx";
-import { Header } from "../../components/header/index.tsx";
-import { Input } from "../../components/input/index.tsx";
+import { useAuth } from "../../context/AuthContext";
+import { Header } from "../../components/header";
+import { Input } from "../../components/input";
 import { useHistory } from "react-router-dom";
-import { searchCep } from "../../services/cep.service.ts";
-import { Button } from "../../components/button/index.tsx";
-import { useAddress } from "../../context/AddressContext.tsx";
-import cart from "../../assets/14182.jpg";
+import { searchCep } from "../../services/cep.service";
+import { Button } from "../../components/button";
+import { useAddress } from "../../context/AddressContext";
 import * as yup from "yup";
 import "./style.css";
+
+interface FormValues {
+  cep: string;
+}
+
+interface ItemData {
+  id: string;
+  title: string;
+  thumbnail: string;
+  price: number;
+  quantity: number;
+}
+
+interface enderecoData {
+  cidade: string;
+  bairro: string;
+  endereco: string;
+  uf: string;
+}
+
+const cart = require("../../assets/14182.jpg");
 
 const cepSchema = yup.object().shape({
   cep: yup
@@ -23,24 +43,24 @@ const cepSchema = yup.object().shape({
 export const Cart = () => {
   const { updateAddressData } = useAddress();
   const { tokenData, userEmail } = useAuth();
-  const [data, setData] = useState(
+  const [data, setData] = useState<ItemData[]>(
     tokenData && getItem(userEmail)
       ? getItem(userEmail)
       : getItem("userNotLogged") || []
   );
-  const [endereco, setEndereco] = useState();
+  const [endereco, setEndereco] = useState<enderecoData>();
 
   const history = useHistory();
 
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<FormValues>({
     cep: "",
   });
 
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormValues>({
     cep: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -50,6 +70,12 @@ export const Cart = () => {
       ...errors,
       [name]: "",
     });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   useEffect(() => {
@@ -66,7 +92,7 @@ export const Cart = () => {
     console.log((totalPrice += obj.price * obj.quantity));
   });
 
-  const plusItem = (id) => {
+  const plusItem = (id: string) => {
     const updateCart = data.map((item) => {
       if (item.id === id) {
         return { ...item, quantity: item.quantity + 1 };
@@ -78,7 +104,7 @@ export const Cart = () => {
     setItem(tokenData ? userEmail : "userNotLogged", updateCart);
   };
 
-  const subtractItem = (id) => {
+  const subtractItem = (id: string) => {
     const updateCart = data.map((item) => {
       if (item.id === id) {
         return { ...item, quantity: item.quantity - 1 };
@@ -90,7 +116,7 @@ export const Cart = () => {
     setItem(tokenData ? userEmail : "userNotLogged", updateCart);
   };
 
-  const removeItem = (obj) => {
+  const removeItem = (obj: ItemData) => {
     const arraFilter = data.filter((e) => e.id !== obj.id);
     setData(arraFilter);
 
@@ -99,7 +125,9 @@ export const Cart = () => {
     }
 
     const notLoggedInCart = getItem("userNotLogged") || [];
-    const notLoggedInFiltered = notLoggedInCart.filter((e) => e.id !== obj.id);
+    const notLoggedInFiltered = notLoggedInCart.filter(
+      (e: ItemData) => e.id !== obj.id
+    );
     setItem("userNotLogged", notLoggedInFiltered);
   };
 
@@ -113,10 +141,16 @@ export const Cart = () => {
 
   const handleSearchCEP = async () => {
     try {
-      const cepDigitado = document.getElementById("cep").value;
+      const cepDigitado = (document.getElementById("cep") as HTMLInputElement)
+        .value;
       const resultado = await searchCep(cepDigitado);
       if (resultado.cidade !== "") {
-        setEndereco(resultado);
+        setEndereco({
+          cidade: resultado.cidade,
+          bairro: resultado.bairro,
+          endereco: resultado.endereco,
+          uf: resultado.uf,
+        });
         updateAddressData({ endereco: resultado });
       } else {
         alert("Informe um CEP correto!");
@@ -133,7 +167,7 @@ export const Cart = () => {
         handleSearchCEP();
       })
       .catch((yupErrors) => {
-        yupErrors.inner.forEach((error) => {
+        yupErrors.inner.forEach((error: any) => {
           setErrors((prevErrors) => ({
             ...prevErrors,
             [error.path]: error.message,
@@ -191,9 +225,8 @@ export const Cart = () => {
                   type="text"
                   value={formValues.cep}
                   error={!!errors.cep}
-                  helperText={errors.cep}
                   onChange={handleInputChange}
-                  onKeyDown={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 {errors.cep && (
                   <div className="error-message">

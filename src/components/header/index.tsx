@@ -9,7 +9,7 @@ import "./style.css";
 
 interface HeaderProps {
   cartDisable?: boolean;
-  qtdItens: number;
+  qtdItens?: number;
 }
 
 export function Header(props: HeaderProps) {
@@ -152,7 +152,7 @@ export function Header(props: HeaderProps) {
 
       {!props.cartDisable ? (
         <button className="carrinho" onClick={handleClickCart}>
-          {props.qtdItens > 0 ? (
+          {props.qtdItens && props.qtdItens > 0 ? (
             <p className="qtdItens">{props.qtdItens}</p>
           ) : null}
           <FaShoppingCart />

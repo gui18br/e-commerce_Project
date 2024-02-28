@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 
 interface AddresData {
-  enderecoData: string;
   endereco: {
     cidade: string;
     bairro: string;
