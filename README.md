@@ -35,4 +35,3 @@ npm install --legacy-peer-deps
 - [Yup](https://www.npmjs.com/package/yup)
 - [Axios](https://axios-http.com/docs/intro)
 - [Firebase](https://firebase.google.com/)
-```
