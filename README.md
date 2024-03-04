@@ -25,7 +25,7 @@ To install project dependencies, be sure to use the following command:
 
 ```bash
 npm install --legacy-peer-deps
-
+```
 ## 🔨 Tools
 
 - [TypeScript](https://www.typescriptlang.org/docs/)
