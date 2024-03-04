@@ -25,7 +25,7 @@ To install project dependencies, be sure to use the following command:
 
 ```bash
 npm install --legacy-peer-deps
-
+```
 ## 🔨 Tools
 
 - [TypeScript](https://www.typescriptlang.org/docs/)
@@ -35,4 +35,3 @@ npm install --legacy-peer-deps
 - [Yup](https://www.npmjs.com/package/yup)
 - [Axios](https://axios-http.com/docs/intro)
 - [Firebase](https://firebase.google.com/)
-```
