@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { useProduct } from "../../context/ProductContext";
-import { getItem } from "../../services/LocalStorageFuncs.js";
+import { getItem, setItem } from "../../services/LocalStorageFuncs.js";
 import "./style.css";
 
 interface HeaderProps {
@@ -26,7 +26,7 @@ export function Header(props: HeaderProps) {
     auth
       .signOut()
       .then(() => {
-        updateTokenData({ tokenData: undefined });
+        setItem("token", undefined);
         localStorage.removeItem("token");
         history.push("/login");
       })
@@ -102,7 +102,7 @@ export function Header(props: HeaderProps) {
           </li>
         </ul>
       </nav>
-      {tokenData ? (
+      {getItem("token") ? (
         <>
           <div className="menu">
             <div

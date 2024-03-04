@@ -31,21 +31,21 @@ export const Store = () => {
 
   const [data, setData] = useState<ItemData[]>([]);
   const [cart, setCart] = useState<ItemData[]>(
-    tokenData && getItem(userEmail)
+    getItem("token") && getItem(userEmail)
       ? getItem(userEmail)
       : getItem("userNotLogged") || []
   );
   const [offset, setOffSet] = useState<number>(0);
 
   useEffect(() => {
-    if (tokenData !== "" && getItem("userNotLogged")) {
+    if (getItem("token") !== "" && getItem("userNotLogged")) {
       const combinedCart: ItemData[] = [
         ...getItem("userNotLogged"),
         ...getItem(userEmail),
       ];
       setCart(combinedCart);
     }
-  }, [tokenData, userEmail]);
+  }, [userEmail]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,11 +65,14 @@ export const Store = () => {
     if (element) {
       const arrFilter = cart.filter((e) => e.id !== obj.id);
       setCart(arrFilter);
-      setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
+      setItem(getItem("token") ? userEmail : "userNotLogged", arrFilter);
     } else {
       const newItem: ItemData = { ...obj, quantity: 1 };
       setCart([...cart, newItem]);
-      setItem(tokenData ? userEmail : "userNotLogged", [...cart, newItem]);
+      setItem(getItem("token") ? userEmail : "userNotLogged", [
+        ...cart,
+        newItem,
+      ]);
     }
   };
 

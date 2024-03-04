@@ -41,18 +41,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setTokenData(newData);
   };
 
-  useEffect(() => {
-    if (tokenData) {
-      setItem("token", tokenData.tokenData || "");
-    }
-    if (userEmail) {
-      setItem("userEmail", userEmail.userEmail || "");
-    }
-    if (userCpf) {
-      setItem("userCpf", userCpf.userCpf || "");
-    }
-  }, [tokenData, userEmail, userCpf]);
-
   return (
     <AuthContext.Provider
       value={{

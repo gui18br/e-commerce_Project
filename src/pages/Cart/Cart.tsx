@@ -44,7 +44,7 @@ export const Cart = () => {
   const { updateAddressData } = useAddress();
   const { tokenData, userEmail } = useAuth();
   const [data, setData] = useState<ItemData[]>(
-    tokenData && getItem(userEmail)
+    getItem("token") && getItem(userEmail)
       ? getItem(userEmail)
       : getItem("userNotLogged") || []
   );
@@ -79,13 +79,13 @@ export const Cart = () => {
   };
 
   useEffect(() => {
-    if (tokenData !== "" && getItem("userNotLogged")) {
+    if (getItem("token") !== "" && getItem("userNotLogged")) {
       const combinedCart = [...getItem("userNotLogged"), ...getItem(userEmail)];
       setItem("userNotLogged", []);
       setData(combinedCart);
       setItem(userEmail, combinedCart);
     }
-  }, [tokenData, userEmail]);
+  }, [userEmail]);
 
   let totalPrice = 0;
   data.forEach((obj) => {
@@ -101,7 +101,7 @@ export const Cart = () => {
       return item;
     });
     setData(updateCart);
-    setItem(tokenData ? userEmail : "userNotLogged", updateCart);
+    setItem(getItem("token") ? userEmail : "userNotLogged", updateCart);
   };
 
   const subtractItem = (id: string) => {
@@ -113,14 +113,14 @@ export const Cart = () => {
       return item;
     });
     setData(updateCart);
-    setItem(tokenData ? userEmail : "userNotLogged", updateCart);
+    setItem(getItem("token") ? userEmail : "userNotLogged", updateCart);
   };
 
   const removeItem = (obj: ItemData) => {
     const arraFilter = data.filter((e) => e.id !== obj.id);
     setData(arraFilter);
 
-    if (tokenData) {
+    if (getItem("token")) {
       setItem(userEmail, arraFilter);
     }
 
@@ -258,7 +258,7 @@ export const Cart = () => {
               <Button
                 onClick={() =>
                   !errors.cep && endereco !== undefined
-                    ? tokenData
+                    ? getItem("token")
                       ? handleClickPayment()
                       : history.push("/login")
                     : null

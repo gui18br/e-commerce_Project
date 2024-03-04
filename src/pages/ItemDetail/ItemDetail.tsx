@@ -29,7 +29,7 @@ export const ItemDetail: React.FC = () => {
   const { product } = useProduct();
 
   const [cart, setCart] = useState<ItemData[]>(
-    tokenData && getItem(userEmail)
+    getItem("token") && getItem(userEmail)
       ? getItem(userEmail)
       : getItem("userNotLogged") || []
   );
@@ -39,14 +39,14 @@ export const ItemDetail: React.FC = () => {
   const { id } = useParams<useParamsInterface>();
 
   useEffect(() => {
-    if (tokenData !== "" && getItem("userNotLogged")) {
+    if (getItem("token") !== "" && getItem("userNotLogged")) {
       const combinedCart: ItemData[] = [
         ...getItem("userNotLogged"),
         ...getItem(userEmail),
       ];
       setCart(combinedCart);
     }
-  }, [tokenData, userEmail]);
+  }, [userEmail]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,11 +81,14 @@ export const ItemDetail: React.FC = () => {
     if (element) {
       const arrFilter = cart.filter((e) => e.id !== obj.id);
       setCart(arrFilter);
-      setItem(tokenData ? userEmail : "userNotLogged", arrFilter);
+      setItem(getItem("token") ? userEmail : "userNotLogged", arrFilter);
     } else {
       const newItem: ItemData = { ...obj, quantity: 1 };
       setCart([...cart, newItem]);
-      setItem(tokenData ? userEmail : "userNotLogged", [...cart, newItem]);
+      setItem(getItem("token") ? userEmail : "userNotLogged", [
+        ...cart,
+        newItem,
+      ]);
     }
   };
 

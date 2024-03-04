@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { setItem } from "../../services/LocalStorageFuncs";
+import { getItem, setItem } from "../../services/LocalStorageFuncs";
 import { Button } from "../../components/button";
 import { useHistory } from "react-router-dom";
 import { Input } from "../../components/input";
@@ -82,7 +82,7 @@ export const Login = () => {
       setItem("userEmail", emailFirebase);
       setItem("token", accessToken);
       updateUserEmail({ userEmail: emailFirebase });
-      updateTokenData({ tokenData: accessToken });
+      updateTokenData({ tokenData: getItem("token") });
       history.push("/");
     } catch (error) {
       alert("Falha ao logar: " + error);
