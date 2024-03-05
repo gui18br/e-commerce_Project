@@ -23,11 +23,9 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [tokenData, setTokenData] = useState<AuthData>(getItem("token") || "");
-  const [userEmail, setUserEmail] = useState<AuthData>(
-    getItem("userEmail") || ""
-  );
-  const [userCpf, setUserCpf] = useState<AuthData>(getItem("userCpf") || "");
+  const [tokenData, setTokenData] = useState<AuthData>(getItem("token"));
+  const [userEmail, setUserEmail] = useState<AuthData>(getItem("userEmail"));
+  const [userCpf, setUserCpf] = useState<AuthData>(getItem("userCpf"));
 
   const updateUserCpf = (newData: AuthData) => {
     setUserCpf(newData);
@@ -44,11 +42,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        tokenData: tokenData?.tokenData || "",
+        tokenData: tokenData?.tokenData || getItem("token"),
         updateTokenData,
-        userEmail: userEmail?.userEmail || "",
+        userEmail: userEmail?.userEmail || getItem("userEmail"),
         updateUserEmail,
-        userCpf: userCpf?.userCpf || "",
+        userCpf: userCpf?.userCpf || getItem("userCpf"),
         updateUserCpf,
       }}
     >

@@ -26,7 +26,7 @@ export function Header(props: HeaderProps) {
     auth
       .signOut()
       .then(() => {
-        setItem("token", undefined);
+        updateTokenData({ tokenData: undefined });
         localStorage.removeItem("token");
         history.push("/login");
       })
@@ -102,7 +102,7 @@ export function Header(props: HeaderProps) {
           </li>
         </ul>
       </nav>
-      {getItem("token") ? (
+      {tokenData ? (
         <>
           <div className="menu">
             <div

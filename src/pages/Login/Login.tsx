@@ -82,7 +82,7 @@ export const Login = () => {
       setItem("userEmail", emailFirebase);
       setItem("token", accessToken);
       updateUserEmail({ userEmail: emailFirebase });
-      updateTokenData({ tokenData: getItem("token") });
+      updateTokenData({ tokenData: accessToken });
       history.push("/");
     } catch (error) {
       alert("Falha ao logar: " + error);
