@@ -42,7 +42,10 @@ const cepSchema = yup.object().shape({
 
 export const Cart = () => {
   const { updateAddressData } = useAddress();
-  const { tokenData, userEmail } = useAuth();
+  const { tokenData, userData } = useAuth();
+
+  const userEmail = userData?.userEmail || "";
+
   const [data, setData] = useState<ItemData[]>(
     tokenData && getItem(userEmail)
       ? getItem(userEmail)

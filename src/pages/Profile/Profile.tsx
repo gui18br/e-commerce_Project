@@ -5,8 +5,10 @@ import { Header } from "../../components/header/index";
 import "./style.css";
 
 export const Profile = () => {
-  const { userCpf, userEmail, tokenData } = useAuth();
-  const [userData, setUserData] = useState(JSON.parse(getItem(userCpf)) || "");
+  const { userData, tokenData } = useAuth();
+
+  const userEmail = userData?.userEmail || "";
+
   const [cart, setCart] = useState(
     tokenData && getItem(userEmail)
       ? getItem(userEmail)
@@ -29,9 +31,8 @@ export const Profile = () => {
         <img src="" alt="" />
         <p>{userData.userName}</p>
         <p>{userEmail}</p>
-        {/* <p>{getItem("userEmail")}</p> */}
         <h3>Dados pessoais</h3>
-        <p>CPF: {userCpf}</p>
+        <p>CPF: {userData.userCPF}</p>
       </div>
     </div>
   );

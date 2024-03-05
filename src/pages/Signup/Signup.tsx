@@ -41,7 +41,7 @@ const signUpSchema = yup.object().shape({
 
 export const Signup = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { updateTokenData, updateUserCpf } = useAuth();
+  const { updateTokenData, updateUserData } = useAuth();
   const auth = FIREBASE_AUTH;
 
   const history = useHistory();
@@ -93,15 +93,15 @@ export const Signup = () => {
         email,
         password
       );
-      updateTokenData({ tokenData: response.user.refreshToken });
-      updateUserCpf({ userCpf: cpf });
-      const userData = {
+      const accessToken: string = response.user.refreshToken;
+      updateTokenData({ tokenData: accessToken });
+      setItem("token", accessToken);
+      updateUserData({ userName: name, userEmail: email, userCPF: cpf });
+      setItem("userData", {
         userName: name,
         userEmail: email,
         userCPF: cpf,
-      };
-      setItem("userCpf", cpf);
-      setItem(cpf, JSON.stringify(userData));
+      });
       history.push("/");
     } catch (error) {
       alert("Signup failed" + error);

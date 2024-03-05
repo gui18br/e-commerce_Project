@@ -13,9 +13,8 @@ interface HeaderProps {
 }
 
 export function Header(props: HeaderProps) {
-  const { tokenData, userCpf, updateTokenData } = useAuth();
+  const { tokenData, userData, updateTokenData } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [userData, setUserData] = useState(JSON.parse(getItem(userCpf)) || "");
   const auth = FIREBASE_AUTH;
 
   const history = useHistory();

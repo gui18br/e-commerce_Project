@@ -26,8 +26,10 @@ const casalMoveis = require("../../assets/jovem-mulher-se-mudando-para-uma-nova-
 const LIMIT = 12;
 
 export const Store = () => {
-  const { userEmail, tokenData } = useAuth();
+  const { userData, tokenData } = useAuth();
   const { product } = useProduct();
+
+  const userEmail = userData?.userEmail || "";
 
   const [data, setData] = useState<ItemData[]>([]);
   const [cart, setCart] = useState<ItemData[]>(
@@ -45,7 +47,7 @@ export const Store = () => {
       ];
       setCart(combinedCart);
     }
-  }, [userEmail]);
+  }, [tokenData, userEmail]);
 
   useEffect(() => {
     const fetchData = async () => {

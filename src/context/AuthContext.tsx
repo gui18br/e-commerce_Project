@@ -1,19 +1,24 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { getItem, setItem } from "../services/LocalStorageFuncs";
+import React, { createContext, useContext, useState } from "react";
+import { getItem } from "../services/LocalStorageFuncs";
 
-interface AuthData {
+interface UserData {
+  userName?: string;
+  userEmail: string;
+  userCPF?: string;
+}
+
+interface TokenData {
   tokenData?: string;
-  userEmail?: string;
-  userCpf?: string;
 }
 
 interface AuthContextType {
   tokenData: string;
-  updateTokenData: (newData: AuthData) => void;
-  userEmail: string;
-  updateUserEmail: (newData: AuthData) => void;
-  userCpf: string;
-  updateUserCpf: (newData: AuthData) => void;
+  updateTokenData: (newData: TokenData) => void;
+  userData: UserData;
+  updateUserData: (newData: UserData) => void;
+  updateUserName: (newData: string) => void;
+  updateUserEmail: (newData: string) => void;
+  updateuserCPF: (newData: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,31 +28,43 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [tokenData, setTokenData] = useState<AuthData>(getItem("token"));
-  const [userEmail, setUserEmail] = useState<AuthData>(getItem("userEmail"));
-  const [userCpf, setUserCpf] = useState<AuthData>(getItem("userCpf"));
+  const [tokenData, setTokenData] = useState<TokenData>(getItem("token") || {});
+  const [userData, setUserData] = useState<UserData>(
+    getItem("userData") || { userEmail: "" }
+  );
 
-  const updateUserCpf = (newData: AuthData) => {
-    setUserCpf(newData);
+  console.log(userData.userName);
+
+  const updateUserData = (newData: UserData) => {
+    setUserData(newData);
   };
 
-  const updateUserEmail = (newData: AuthData) => {
-    setUserEmail(newData);
+  const updateUserName = (newData: string) => {
+    setUserData((prevUserData) => ({ ...prevUserData, userName: newData }));
   };
 
-  const updateTokenData = (newData: AuthData) => {
+  const updateuserCPF = (newData: string) => {
+    setUserData((prevUserData) => ({ ...prevUserData, userCPF: newData }));
+  };
+
+  const updateUserEmail = (newData: string) => {
+    setUserData((prevUserData) => ({ ...prevUserData, userEmail: newData }));
+  };
+
+  const updateTokenData = (newData: TokenData) => {
     setTokenData(newData);
   };
 
   return (
     <AuthContext.Provider
       value={{
+        userData: userData || getItem("userData") || { userEmail: "" },
         tokenData: tokenData?.tokenData || getItem("token"),
+        updateUserData,
         updateTokenData,
-        userEmail: userEmail?.userEmail || getItem("userEmail"),
+        updateUserName,
         updateUserEmail,
-        userCpf: userCpf?.userCpf || getItem("userCpf"),
-        updateUserCpf,
+        updateuserCPF,
       }}
     >
       {children}

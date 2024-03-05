@@ -25,8 +25,10 @@ interface useParamsInterface {
 }
 
 export const ItemDetail: React.FC = () => {
-  const { userEmail, tokenData } = useAuth();
+  const { userData, tokenData } = useAuth();
   const { product } = useProduct();
+
+  const userEmail = userData?.userEmail || "";
 
   const [cart, setCart] = useState<ItemData[]>(
     tokenData && getItem(userEmail)

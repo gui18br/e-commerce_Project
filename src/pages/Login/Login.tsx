@@ -79,10 +79,12 @@ export const Login = () => {
       );
       const emailFirebase: string = response.user.email ?? "";
       const accessToken: string = response.user.refreshToken;
-      setItem("userEmail", emailFirebase);
-      setItem("token", accessToken);
-      updateUserEmail({ userEmail: emailFirebase });
+      setItem("userData", {
+        userEmail: emailFirebase,
+      });
+
       updateTokenData({ tokenData: accessToken });
+      setItem("token", accessToken);
       history.push("/");
     } catch (error) {
       alert("Falha ao logar: " + error);
