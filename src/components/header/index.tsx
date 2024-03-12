@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import { useProduct } from "../../context/ProductContext";
-import { getItem, setItem } from "../../services/LocalStorageFuncs.js";
 import "./style.css";
+import { useCart } from "../../context/CartContext";
 
 interface HeaderProps {
   cartDisable?: boolean;
@@ -14,6 +14,8 @@ interface HeaderProps {
 
 export function Header(props: HeaderProps) {
   const { tokenData, userData, updateTokenData } = useAuth();
+  const { cartQuantity } = useCart();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const auth = FIREBASE_AUTH;
 
@@ -25,7 +27,7 @@ export function Header(props: HeaderProps) {
     auth
       .signOut()
       .then(() => {
-        updateTokenData({ tokenData: undefined });
+        updateTokenData({ tokenData: "" });
         localStorage.removeItem("token");
         history.push("/login");
       })
@@ -151,8 +153,8 @@ export function Header(props: HeaderProps) {
 
       {!props.cartDisable ? (
         <button className="carrinho" onClick={handleClickCart}>
-          {props.qtdItens && props.qtdItens > 0 ? (
-            <p className="qtdItens">{props.qtdItens}</p>
+          {cartQuantity && cartQuantity > 0 ? (
+            <p className="qtdItens">{cartQuantity}</p>
           ) : null}
           <FaShoppingCart />
         </button>

@@ -82,17 +82,30 @@ export const Cart = () => {
   };
 
   useEffect(() => {
-    if (tokenData !== "" && getItem("userNotLogged")) {
-      const combinedCart = [...getItem("userNotLogged"), ...getItem(userEmail)];
-      setItem("userNotLogged", []);
-      setData(combinedCart);
-      setItem(userEmail, combinedCart);
-    }
+    const fetchData = async () => {
+      if (tokenData !== null && getItem("userNotLogged")) {
+        if (getItem(userEmail)) {
+          const combinedCart = [
+            ...getItem("userNotLogged"),
+            ...getItem(userEmail),
+          ];
+          setItem("userNotLogged", []);
+          setData(combinedCart);
+          setItem(userEmail, combinedCart);
+        } else {
+          setItem(userEmail, getItem("userNotLogged"));
+          setData(getItem("userNotLogged"));
+          setItem("userNotLogged", []);
+        }
+      }
+    };
+
+    fetchData(); // Chama a função fetchData
   }, [tokenData, userEmail]);
 
   let totalPrice = 0;
   data.forEach((obj) => {
-    console.log((totalPrice += obj.price * obj.quantity));
+    totalPrice += obj.price * obj.quantity;
   });
 
   const plusItem = (id: string) => {
@@ -115,6 +128,7 @@ export const Cart = () => {
 
       return item;
     });
+
     setData(updateCart);
     setItem(tokenData ? userEmail : "userNotLogged", updateCart);
   };

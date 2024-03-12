@@ -41,13 +41,17 @@ export const ItemDetail: React.FC = () => {
   const { id } = useParams<useParamsInterface>();
 
   useEffect(() => {
-    if (tokenData !== "" && getItem("userNotLogged")) {
-      const combinedCart: ItemData[] = [
-        ...getItem("userNotLogged"),
-        ...getItem(userEmail),
-      ];
-      setCart(combinedCart);
-    }
+    const fetchData = async () => {
+      if (tokenData !== null && getItem("userNotLogged")) {
+        const combinedCart: ItemData[] = [
+          ...getItem("userNotLogged"),
+          ...getItem(userEmail),
+        ];
+        setCart(combinedCart);
+      }
+    };
+
+    fetchData(); // Chama a função fetchData
   }, [tokenData, userEmail]);
 
   useEffect(() => {
@@ -91,17 +95,9 @@ export const ItemDetail: React.FC = () => {
     }
   };
 
-  const calcQuantity = () => {
-    let quantidade: number = 0;
-    for (var i = 0; i < cart.length; i++) {
-      quantidade += cart[i].quantity;
-    }
-    return quantidade;
-  };
-
   return (
     <div className="container">
-      <Header qtdItens={calcQuantity()} />
+      <Header />
       <div className="item-details">
         <div className="item-image">
           <img className="image" src={itemData.thumbnail} alt="" />
